@@ -159,87 +159,113 @@ function EtkinliklerPage() {
 
           {/* Cards Row */}
           <div id="upcoming-row" className="relative">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {upcomingList.map((event) => (
-                <div
-                  key={event.id}
-                  onClick={() => setActiveModalEvent(event)}
-                  className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-navy/30 cursor-pointer"
+            {upcomingList.length === 0 ? (
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/80 bg-card/60 p-10 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-navy/10 text-navy">
+                  <Calendar className="h-6 w-6" />
+                </div>
+                <h3 className="mt-4 text-base font-bold text-foreground sm:text-lg">
+                  Yakında yeni etkinlikler duyurulacaktır
+                </h3>
+                <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                  Şu an için planlanan açık bir etkinlik takvimi bulunmuyor. Game jam'ler, atölyeler
+                  ve seminer duyurularından haberdar olmak için topluluğumuza katılabilirsiniz.
+                </p>
+                <a
+                  href="https://discord.gg/logd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-navy px-5 py-2 text-xs font-semibold text-cream transition-transform hover:scale-105 sm:text-sm"
                 >
-                  {/* Image container with date badge */}
-                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
-                    <img
-                      src={event.image}
-                      alt={event.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      referrerPolicy="no-referrer"
-                    />
+                  <span>Discord Topluluğuna Katıl</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            ) : (
+              <>
+                <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                  {upcomingList.map((event) => (
+                    <div
+                      key={event.id}
+                      onClick={() => setActiveModalEvent(event)}
+                      className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-navy/30 cursor-pointer"
+                    >
+                      {/* Image container with date badge */}
+                      <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
+                        <img
+                          src={event.image}
+                          alt={event.title}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
 
-                    {/* Date Badge floating on top-left */}
-                    <div className="absolute top-3 left-3 flex flex-col items-center justify-center rounded-xl border border-slate-200/80 bg-white/95 px-2.5 py-1.5 text-center shadow-md backdrop-blur-sm">
-                      <span className="text-base font-black leading-none text-slate-900">
-                        {event.day}
-                      </span>
-                      <span className="mt-0.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-600">
-                        {event.month}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="flex flex-1 flex-col justify-between p-4">
-                    <div>
-                      <h3 className="font-bold text-foreground transition-colors group-hover:text-navy sm:text-base line-clamp-1">
-                        {event.title}
-                      </h3>
-
-                      {/* Category & Mode Tags */}
-                      <div className="mt-2.5 flex items-center gap-1.5">
-                        <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold text-secondary-foreground">
-                          {event.category}
-                        </span>
-                        <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold text-secondary-foreground">
-                          {event.mode}
-                        </span>
+                        {/* Date Badge floating on top-left */}
+                        <div className="absolute top-3 left-3 flex flex-col items-center justify-center rounded-xl border border-slate-200/80 bg-white/95 px-2.5 py-1.5 text-center shadow-md backdrop-blur-sm">
+                          <span className="text-base font-black leading-none text-slate-900">
+                            {event.day}
+                          </span>
+                          <span className="mt-0.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-600">
+                            {event.month}
+                          </span>
+                        </div>
                       </div>
 
-                      <p className="mt-2.5 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-                        {event.description}
-                      </p>
-                    </div>
+                      {/* Body Content */}
+                      <div className="flex flex-1 flex-col justify-between p-4">
+                        <div>
+                          <h3 className="font-bold text-foreground transition-colors group-hover:text-navy sm:text-base line-clamp-1">
+                            {event.title}
+                          </h3>
 
-                    {/* Bottom Meta & Arrow button */}
-                    <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3 text-xs text-muted-foreground">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="inline-flex items-center gap-1">
-                          <Calendar className="h-3 w-3 text-muted-foreground" />
-                          <span>{event.dateRange}</span>
-                        </span>
-                        <span className="inline-flex items-center gap-1">
-                          {event.isTime ? (
-                            <Clock className="h-3 w-3 text-muted-foreground" />
-                          ) : (
-                            <MapPin className="h-3 w-3 text-muted-foreground" />
-                          )}
-                          <span>{event.locationOrTime}</span>
-                        </span>
-                      </div>
+                          {/* Category & Mode Tags */}
+                          <div className="mt-2.5 flex items-center gap-1.5">
+                            <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold text-secondary-foreground">
+                              {event.category}
+                            </span>
+                            <span className="rounded-full bg-secondary px-2.5 py-0.5 text-[11px] font-semibold text-secondary-foreground">
+                              {event.mode}
+                            </span>
+                          </div>
 
-                      <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors group-hover:border-navy group-hover:bg-navy group-hover:text-cream">
-                        <ArrowRight className="h-3.5 w-3.5" />
+                          <p className="mt-2.5 text-xs text-muted-foreground line-clamp-2 leading-relaxed">
+                            {event.description}
+                          </p>
+                        </div>
+
+                        {/* Bottom Meta & Arrow button */}
+                        <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3 text-xs text-muted-foreground">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center gap-1">
+                              <Calendar className="h-3 w-3 text-muted-foreground" />
+                              <span>{event.dateRange}</span>
+                            </span>
+                            <span className="inline-flex items-center gap-1">
+                              {event.isTime ? (
+                                <Clock className="h-3 w-3 text-muted-foreground" />
+                              ) : (
+                                <MapPin className="h-3 w-3 text-muted-foreground" />
+                              )}
+                              <span>{event.locationOrTime}</span>
+                            </span>
+                          </div>
+
+                          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border text-foreground/70 transition-colors group-hover:border-navy group-hover:bg-navy group-hover:text-cream">
+                            <ArrowRight className="h-3.5 w-3.5" />
+                          </div>
+                        </div>
                       </div>
                     </div>
+                  ))}
+                </div>
+
+                {/* Floating Next Indicator on Desktop */}
+                <div className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 lg:flex">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-card text-foreground shadow-lg backdrop-blur-sm">
+                    <ChevronRight className="h-5 w-5" />
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Floating Next Indicator on Desktop */}
-            <div className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 lg:flex">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-border/80 bg-card text-foreground shadow-lg backdrop-blur-sm">
-                <ChevronRight className="h-5 w-5" />
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </section>
 
@@ -249,52 +275,70 @@ function EtkinliklerPage() {
             <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
               Geçmiş Etkinlikler
             </h2>
-            <a
-              href="#tum-gecmis"
-              onClick={(e) => {
-                e.preventDefault();
-                setIsExpandedPast(true);
-              }}
-              className="group flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
-            >
-              <span>Tüm Geçmiş Etkinlikler</span>
-              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            {allPastEvents.length > 0 && (
+              <a
+                href="#tum-gecmis"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsExpandedPast(true);
+                }}
+                className="group flex items-center gap-1.5 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+              >
+                <span>Tüm Geçmiş Etkinlikler</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            )}
           </div>
 
           {/* Timeline Container */}
           <div className="relative">
-            {/* Top timeline icon node (Desktop) */}
-            <div className="relative z-10 mx-auto mb-6 hidden h-9 w-9 items-center justify-center rounded-full border border-navy/30 bg-card text-navy shadow-sm md:flex">
-              <Calendar className="h-4 w-4" />
-            </div>
-
-            {/* Vertical timeline line */}
-            <div className="absolute top-4 bottom-12 left-1/2 hidden w-0.5 -translate-x-1/2 bg-border md:block" />
-
-            {/* Two-column grid matching the exact layout */}
-            <div className="grid gap-6 md:grid-cols-2 md:gap-x-14 md:gap-y-6">
-              {(isExpandedPast ? allPastEvents : allPastEvents.slice(0, 6)).map((event) => (
-                <PastEventCard
-                  key={event.id}
-                  event={event}
-                  onSelect={() => setActiveModalEvent(event)}
-                />
-              ))}
-            </div>
-
-            {/* Load More Button */}
-            {!isExpandedPast && (
-              <div className="mt-10 flex justify-center">
-                <button
-                  type="button"
-                  onClick={() => setIsExpandedPast(true)}
-                  className="group inline-flex items-center gap-2 rounded-xl border border-border/80 bg-card px-5 py-2.5 text-xs sm:text-sm font-semibold text-foreground shadow-sm transition-all hover:border-navy/40 hover:bg-secondary/70 hover:shadow"
-                >
-                  <span>Daha Fazla Yükle</span>
-                  <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-                </button>
+            {allPastEvents.length === 0 ? (
+              <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/80 bg-card/60 p-10 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-navy/10 text-navy">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <h3 className="mt-4 text-base font-bold text-foreground sm:text-lg">
+                  Geçmiş etkinlik kaydı bulunmuyor
+                </h3>
+                <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                  Tamamlanan etkinlik ve atölye kayıtları burada arşivlenecektir.
+                </p>
               </div>
+            ) : (
+              <>
+                {/* Top timeline icon node (Desktop) */}
+                <div className="relative z-10 mx-auto mb-6 hidden h-9 w-9 items-center justify-center rounded-full border border-navy/30 bg-card text-navy shadow-sm md:flex">
+                  <Calendar className="h-4 w-4" />
+                </div>
+
+                {/* Vertical timeline line */}
+                <div className="absolute top-4 bottom-12 left-1/2 hidden w-0.5 -translate-x-1/2 bg-border md:block" />
+
+                {/* Two-column grid matching the exact layout */}
+                <div className="grid gap-6 md:grid-cols-2 md:gap-x-14 md:gap-y-6">
+                  {(isExpandedPast ? allPastEvents : allPastEvents.slice(0, 6)).map((event) => (
+                    <PastEventCard
+                      key={event.id}
+                      event={event}
+                      onSelect={() => setActiveModalEvent(event)}
+                    />
+                  ))}
+                </div>
+
+                {/* Load More Button */}
+                {!isExpandedPast && allPastEvents.length > 6 && (
+                  <div className="mt-10 flex justify-center">
+                    <button
+                      type="button"
+                      onClick={() => setIsExpandedPast(true)}
+                      className="group inline-flex items-center gap-2 rounded-xl border border-border/80 bg-card px-5 py-2.5 text-xs sm:text-sm font-semibold text-foreground shadow-sm transition-all hover:border-navy/40 hover:bg-secondary/70 hover:shadow"
+                    >
+                      <span>Daha Fazla Yükle</span>
+                      <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </section>

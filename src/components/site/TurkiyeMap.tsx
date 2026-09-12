@@ -62,6 +62,7 @@ export function TurkiyeMap() {
       {/* SVG Map Container */}
       <div className="relative overflow-visible">
         <svg
+          suppressHydrationWarning
           viewBox={`0 0 ${MAP_W} ${MAP_H}`}
           role="img"
           aria-label="Türkiye haritası: İzmir (9 topluluk), Uşak (1 topluluk) ve Aydın (1 topluluk) illeri işaretli"
@@ -121,6 +122,7 @@ export function TurkiyeMap() {
                   stroke={on ? "var(--sand)" : isTargetCity ? "var(--sand)" : "var(--cream)"}
                   strokeWidth={on ? 2.6 : isTargetCity ? 1.8 : 0.9}
                   strokeLinejoin="round"
+                  aria-label={`${p.n}${cityData ? ` - ${cityData.count} Topluluk` : ""}`}
                   className="cursor-pointer transition-all duration-300 ease-out"
                   style={{
                     opacity: active && !on ? (isTargetCity ? 0.9 : 0.45) : 1,
@@ -132,10 +134,7 @@ export function TurkiyeMap() {
                   onMouseLeave={() => setActive(null)}
                   onClick={() => setActive(active === p.n ? null : p.n)}
                 >
-                  <title>
-                    {p.n}
-                    {cityData ? ` - ${cityData.count} Topluluk` : ""}
-                  </title>
+                  <title>{p.n}</title>
                 </path>
               );
             })}

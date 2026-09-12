@@ -55,27 +55,31 @@ export const Route = createFileRoute("/hakkimizda")({
 const TIMELINE = [
   {
     icon: Flag,
-    year: "2018",
-    title: "İlk Adım",
-    description: "Bir grup lise öğrencisi ile LOGD fikri doğdu ve ilk buluşmamızı gerçekleştirdik.",
+    year: "2025",
+    title: "Kuruluş ve İlk Buluşma",
+    description:
+      "Kasım 2025'te LOGD fikri doğdu; liseli oyun geliştiricileri tek çatı altında toplayan ilk adımlar atıldı.",
   },
   {
     icon: Users,
-    year: "2019",
-    title: "Toplulukla Büyüme",
-    description: "İlk etkinliklerimizi düzenledik ve üyelerimizle birlikte büyümeye başladık.",
+    year: "2026 (Erken Dönem)",
+    title: "Etkinlikler ve Eğitimler",
+    description:
+      "Game jam'ler, mentorluklar ve atölye çalışmalarıyla topluluk yapımızı güçlendirdik ve üye ağımızı genişlettik.",
   },
   {
     icon: Rocket,
-    year: "2021",
-    title: "Projelerle Sıçrama",
-    description: "Game jam'ler, eğitimler ve projelerle daha geniş kitlelere ulaştık.",
+    year: "2026 (Günümüz)",
+    title: "Sektörel Üretim",
+    description:
+      "Genç yeteneklerin fikirlerini sektörel standartlarda projelere dönüştürmelerini desteklemeyi sürdürüyoruz.",
   },
   {
     icon: Trophy,
-    year: "2024+",
-    title: "Geleceğe Doğru",
-    description: "Daha fazla öğrenciye dokunuyor, oyun ekosistemini birlikte büyütüyoruz.",
+    year: "Gelecek",
+    title: "Ulusal Ekosistem",
+    description:
+      "Türkiye'nin her ilindeki lise öğrencilerine ulaşarak liseli geliştiricilerin geleceğine yön vermeyi hedefliyoruz.",
   },
 ];
 
@@ -210,9 +214,10 @@ function HakkimizdaPage() {
                 </div>
                 <h3 className="mt-5 text-lg font-bold text-slate-900">Misyon</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  Öğrencilere öğrenme, üretme ve paylaşma fırsatlarını kesintisiz sunan bir topluluk
-                  modeli işletiyoruz. Global Game Jam NEXT, atölyeler ve mentorluk programlarıyla
-                  gençleri sektörün gerçek üretim süreçleriyle buluşturuyoruz.
+                  Lise çağındaki oyun geliştirici gençlerin öğrenme, üretme ve paylaşma süreçlerini
+                  sürekli kılan bir topluluk modelini hayata geçirerek sektörün gerçek üretim
+                  dinamikleriyle buluşturmak. Geleceğin oyun geliştiricilerinin yetişmesine katkı
+                  sağlamak.
                 </p>
               </div>
 
@@ -223,9 +228,10 @@ function HakkimizdaPage() {
                 </div>
                 <h3 className="mt-5 text-lg font-bold text-slate-900">Vizyon</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  Türkiye genelinde lise çağındaki oyun geliştiricileri için kalıcı bir köprü
-                  kurarak, her ilde aktif toplulukların bulunduğu ve öğrencilerin fikirlerini gerçek
-                  ürünlere dönüştürebildiği ulusal bir yetenek ekosistemi inşa etmek.
+                  Lise çağındaki genç yetenekleri erken aşamada destekleyerek Türkiye genelinde
+                  sürdürülebilir topluluk ağları kurmak ve liseli geliştiricilerin fikirlerini
+                  sektörel standartlarda projelere dönüştürerek oyun sektörünün geleceğine yön
+                  vermelerini sağlamak.
                 </p>
               </div>
 
@@ -273,8 +279,8 @@ function HakkimizdaPage() {
                 <h3 className="mt-5 text-xl font-bold tracking-tight text-white">LOGD Hakkında</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-300">
                   Liseli Oyun Geliştiriciler Derneği (LOGD), oyun geliştirmeye ilgi duyan lise
-                  öğrencilerini bir araya getiren, kâr amacı gütmeyen resmî bir topluluktur. Genç
-                  geliştiricilere sektörde gerçek üretim deneyimleri sunar.
+                  öğrencilerini bir araya getiren kâr amacı gütmeyen resmî bir dernektir. Genç
+                  geliştiricilere sektör standartlarında üretim deneyimi ve topluluk desteği sunar.
                 </p>
               </div>
 

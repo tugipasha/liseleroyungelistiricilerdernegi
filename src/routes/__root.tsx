@@ -7,11 +7,15 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, lazy, Suspense, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { CookieConsent } from "../components/site/CookieConsent";
+
+// Lazy-loaded to defer Radix Dialog and preferences storage parsing until after initial paint
+const CookieConsent = lazy(() =>
+  import("../components/site/CookieConsent").then((m) => ({ default: m.CookieConsent })),
+);
 
 function NotFoundComponent() {
   return (
@@ -159,7 +163,7 @@ function RootShell({ children }: { children: ReactNode }) {
         taxID: "35-089-005",
         description:
           "Liseler Oyun Geliştiricileri Derneği (LOGD), lise çağındaki gençlerin oyun geliştirme, yazılım, dijital sanat ve yapay zekâ alanlarında yetkinlik kazanmasını sağlayan kütük numarası 35-089-005 olan kâr amacı gütmeyen resmî bir sivil toplum kuruluşudur.",
-        foundingDate: "2018",
+        foundingDate: "2025",
         foundingLocation: {
           "@type": "Place",
           name: "İzmir, Türkiye",
@@ -225,22 +229,6 @@ function RootShell({ children }: { children: ReactNode }) {
         <link
           rel="preload"
           as="image"
-          media="(max-width: 768px)"
-          href="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-          type="image/webp"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          as="image"
-          media="(min-width: 769px)"
-          href="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg.webp"
-          type="image/webp"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          as="image"
           href="/__l5e/assets-v1/d1c732d8-9587-4251-91e2-848b03f215e9/logd-logo.webp"
           type="image/webp"
           fetchPriority="high"
@@ -265,7 +253,9 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
-      <CookieConsent />
+      <Suspense fallback={null}>
+        <CookieConsent />
+      </Suspense>
     </QueryClientProvider>
   );
 }

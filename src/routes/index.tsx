@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -9,20 +10,19 @@ import {
   MapPin,
   Rocket,
   Users,
-  Building2,
   Layers,
 } from "lucide-react";
 
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { TurkiyeMap } from "@/components/site/TurkiyeMap";
 import { useCMS } from "@/lib/cms-store";
 import heroBg from "@/assets/hero-bg.png.asset.json";
 import logo from "@/assets/logd-logo.png.asset.json";
-import p1 from "@/assets/project-1.jpg.asset.json";
-import p2 from "@/assets/project-2.jpg.asset.json";
-import p3 from "@/assets/project-3.jpg.asset.json";
-import p4 from "@/assets/project-4.jpg.asset.json";
+
+// Lazy-load TurkiyeMap to eliminate 58KB of SVG path calculations from initial render
+const TurkiyeMap = lazy(() =>
+  import("@/components/site/TurkiyeMap").then((m) => ({ default: m.TurkiyeMap })),
+);
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,6 +41,22 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    links: [
+      {
+        rel: "preload",
+        as: "image",
+        media: "(max-width: 768px)",
+        href: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp",
+        type: "image/webp",
+      },
+      {
+        rel: "preload",
+        as: "image",
+        media: "(min-width: 769px)",
+        href: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg.webp",
+        type: "image/webp",
+      },
     ],
   }),
   component: Index,
@@ -109,45 +125,9 @@ const PROJECTS = [
   },
 ];
 
-const EVENTS = [
-  {
-    day: "10-14",
-    month: "OCA",
-    title: "Snowy Jam",
-    time: "10 Okul",
-    desc: "Numtal Game Dev önderliğinde 10 okulda eş zamanlı düzenlenen kış Gamejam'i",
-    place: "Fiziksel & Online",
-    tag: "Gamejam",
-  },
-  {
-    day: "15",
-    month: "ŞUB",
-    title: "GGJ Next 2025",
-    time: "Tam Gün",
-    desc: "Genç geliştiriciler için Türkiye'deki ilk fiziksel Global Game Jam Next etkinliği",
-    place: "İzmir / Hibrit",
-    tag: "Global",
-  },
-  {
-    day: "28",
-    month: "MART",
-    title: "Godot Engine ile Geliştirme",
-    time: "17:00",
-    desc: "Açık kaynaklı motorla 2D ve 3D oyun yapımı uygulamalı atölyesi",
-    place: "Online",
-    tag: "Atölye",
-  },
-];
-
-const STATS = [
-  { icon: Users, value: "900+", label: "Üye Öğrenci" },
-  { icon: Building2, value: "120+", label: "Proje" },
-  { icon: Gamepad2, value: "24+", label: "Oyun Jami" },
-  { icon: Calendar, value: "60+", label: "Düzenlenen Etkinlik" },
-];
-
 function Index() {
   const { data: cms } = useCMS();
+  const homeEvents = (cms?.events || []).filter((e) => e.status !== "draft").slice(0, 3);
   const heroEyebrow = cms?.home?.heroEyebrow || "Liseliler, imkânlar, oyunlar.";
   const heroLine1 = cms?.home?.heroTitleLine1 || "Liseli geliştiricilerin";
   const heroLine2 = cms?.home?.heroTitleLine2 || "oyun dünyasına açılan kapısı.";
@@ -216,7 +196,7 @@ function Index() {
       </section>
 
       {/* What we do */}
-      <section id="hakkimizda" className="mx-auto max-w-[1240px] px-6 py-24">
+      <section id="hakkimizda" className="content-auto mx-auto max-w-[1240px] px-6 py-24">
         <p className="eyebrow">Neler yapıyoruz?</p>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
           <h2 className="text-4xl font-extrabold text-foreground">
@@ -318,49 +298,72 @@ function Index() {
           </a>
         </div>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-[2.2fr_1fr]">
-          <div className="grid gap-5 sm:grid-cols-3">
-            {EVENTS.map((ev) => (
-              <article
-                key={ev.title}
-                className="card-elevate flex flex-col rounded-xl border border-border bg-card p-5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="text-center">
-                    <p className="text-2xl font-extrabold leading-none text-foreground">{ev.day}</p>
-                    <p className="mt-1 text-[10px] font-bold tracking-widest text-muted-foreground">
-                      {ev.month}
-                    </p>
+        <div className="mt-12">
+          {homeEvents.length > 0 ? (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {homeEvents.map((ev) => (
+                <article
+                  key={ev.id || ev.title}
+                  className="card-elevate flex flex-col rounded-xl border border-border bg-card p-5"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="text-center">
+                      <p className="text-2xl font-extrabold leading-none text-foreground">
+                        {ev.day}
+                      </p>
+                      <p className="mt-1 text-[10px] font-bold tracking-widest text-muted-foreground">
+                        {ev.month}
+                      </p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold leading-snug text-foreground">{ev.title}</h3>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {ev.locationOrTime || ev.dateRange}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold leading-snug text-foreground">{ev.title}</h3>
-                    <p className="mt-1 text-xs text-muted-foreground">{ev.time}</p>
+                  <p className="mt-5 text-[13px] leading-relaxed text-muted-foreground">
+                    {ev.description}
+                  </p>
+                  <div className="mt-auto flex items-center justify-between pt-6">
+                    <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                      <MapPin className="h-3.5 w-3.5" /> {ev.mode}
+                    </span>
+                    <span className="rounded-md bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground">
+                      {ev.category}
+                    </span>
                   </div>
-                </div>
-                <p className="mt-5 text-[13px] leading-relaxed text-muted-foreground">{ev.desc}</p>
-                <div className="mt-auto flex items-center justify-between pt-6">
-                  <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                    <MapPin className="h-3.5 w-3.5" /> {ev.place}
-                  </span>
-                  <span className="rounded-md bg-secondary px-2.5 py-1 text-[11px] font-medium text-secondary-foreground">
-                    {ev.tag}
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="card-elevate divide-y divide-border rounded-xl border border-border bg-card px-6">
-            {STATS.map(({ icon: Icon, value, label }) => (
-              <div key={label} className="flex items-center gap-4 py-5">
-                <Icon className="h-6 w-6 text-navy" strokeWidth={1.6} />
-                <div>
-                  <p className="text-xl font-extrabold leading-none text-foreground">{value}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{label}</p>
-                </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border/80 bg-card/60 p-8 text-center sm:p-10">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-navy/10 text-navy mb-3">
+                <Calendar className="h-6 w-6" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-base font-bold text-foreground">Yeni Etkinlikler Çok Yakında</h3>
+              <p className="mt-1.5 max-w-md text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                Şu anda takvimde planlanmış aktif bir etkinlik bulunmuyor. Yeni game jam ve atölye
+                duyurularımız çok yakında paylaşılacaktır.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <a
+                  href="https://discord.gg/logd"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-navy px-4 py-2 text-xs font-semibold text-cream hover:bg-navy-light transition-colors"
+                >
+                  Discord Topluluğuna Katıl
+                </a>
+                <a
+                  href="/etkinlikler"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-secondary transition-colors"
+                >
+                  Etkinlikler Sayfası
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -387,7 +390,20 @@ function Index() {
           </div>
 
           <div className="relative">
-            <TurkiyeMap />
+            <Suspense
+              fallback={
+                <div
+                  className="flex h-[260px] w-full items-center justify-center rounded-2xl border border-border/40 bg-card/40 sm:h-[340px]"
+                  aria-hidden="true"
+                >
+                  <span className="text-xs font-medium text-muted-foreground">
+                    Türkiye Topluluk Haritası Yükleniyor...
+                  </span>
+                </div>
+              }
+            >
+              <TurkiyeMap />
+            </Suspense>
             <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
               <MapPin className="h-3.5 w-3.5" /> İzmir · Uşak · Aydın merkezli, 81 ilde topluluk
             </p>
@@ -417,17 +433,19 @@ function Index() {
           </p>
           <form
             onSubmit={(e) => e.preventDefault()}
+            aria-label="Bülten abonelik formu"
             className="flex w-full flex-wrap items-center gap-3"
           >
             <input
               type="email"
               required
               placeholder="E-posta adresin"
-              aria-label="E-posta adresin"
+              aria-label="E-posta adresiniz"
               className="h-11 min-w-[220px] flex-1 rounded-lg border border-cream/20 bg-cream px-4 text-sm text-navy placeholder:text-navy/45 focus:outline-none focus:ring-2 focus:ring-cream/60"
             />
             <button
               type="submit"
+              aria-label="Bültene abone ol"
               className="inline-flex h-11 items-center gap-2 rounded-lg bg-sand px-5 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
             >
               Gönder <ArrowRight className="h-4 w-4" />

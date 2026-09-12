@@ -48,6 +48,7 @@ export function Footer() {
                 width={40}
                 height={40}
                 loading="lazy"
+                decoding="async"
                 className="h-10 w-10 rounded-lg"
               />
               <span className="text-lg font-extrabold">LOGD</span>
@@ -56,16 +57,40 @@ export function Footer() {
               Liseler Oyun Geliştiricileri Derneği
             </p>
             <div className="mt-6 flex items-center gap-4 text-cream/70">
-              <a href="#" aria-label="Instagram" className="transition-colors hover:text-cream">
+              <a
+                href="https://www.instagram.com/logdresmi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LOGD Instagram"
+                className="transition-colors hover:text-cream"
+              >
                 <Instagram className="h-[18px] w-[18px]" />
               </a>
-              <a href="#" aria-label="YouTube" className="transition-colors hover:text-cream">
+              <a
+                href="https://www.youtube.com/@logdresmi"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LOGD YouTube"
+                className="transition-colors hover:text-cream"
+              >
                 <Youtube className="h-[18px] w-[18px]" />
               </a>
-              <a href="#" aria-label="Discord" className="transition-colors hover:text-cream">
+              <a
+                href="https://discord.gg/logd"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LOGD Discord Topluluğu"
+                className="transition-colors hover:text-cream"
+              >
                 <MessageCircle className="h-[18px] w-[18px]" />
               </a>
-              <a href="#" aria-label="GitHub" className="transition-colors hover:text-cream">
+              <a
+                href="https://github.com/logd-org"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LOGD GitHub"
+                className="transition-colors hover:text-cream"
+              >
                 <Github className="h-[18px] w-[18px]" />
               </a>
             </div>

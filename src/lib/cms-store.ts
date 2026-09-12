@@ -195,12 +195,12 @@ export const DEFAULT_CMS_DATA: CMSData = {
     newsletterDesc: "Etkinliklerden haberdar ol, içeriklerden yararlan ve topluluğun parçası kal.",
   },
   about: {
-    missionTitle: "Misyonumuz",
+    missionTitle: "Misyon",
     missionDesc:
-      "Türkiye'nin dört bir yanındaki lise öğrencilerine oyun geliştirme, yazılım, dijital sanat ve yapay zekâ disiplinlerinde eşit fırsat ve rehberlik sunmak.",
-    visionTitle: "Vizyonumuz",
+      "Lise çağındaki oyun geliştirici gençlerin öğrenme, üretme ve paylaşma süreçlerini sürekli kılan bir topluluk modelini hayata geçirerek sektörün gerçek üretim dinamikleriyle buluşturmak. Geleceğin oyun geliştiricilerinin yetişmesine katkı sağlamak.",
+    visionTitle: "Vizyon",
     visionDesc:
-      "Liselerden başlayarak küresel oyun endüstrisinde dünya çapında projelere imza atan, üreten ve paylaşan yeni nesil stüdyoların temellerini atmak.",
+      "Lise çağındaki genç yetenekleri erken aşamada destekleyerek Türkiye genelinde sürdürülebilir topluluk ağları kurmak ve liseli geliştiricilerin fikirlerini sektörel standartlarda projelere dönüştürerek oyun sektörünün geleceğine yön vermelerini sağlamak.",
     stats: [
       { value: "10.000+", label: "Geliştirici Genç" },
       { value: "45+", label: "Etkinlik" },
@@ -232,29 +232,31 @@ export const DEFAULT_CMS_DATA: CMSData = {
     timeline: [
       {
         id: "t1",
-        year: "2018",
-        title: "İlk Adım",
+        year: "2025",
+        title: "Kuruluş ve İlk Buluşma",
         description:
-          "Bir grup lise öğrencisi ile LOGD fikri doğdu ve ilk buluşmamızı gerçekleştirdik.",
+          "Kasım 2025'te LOGD fikri doğdu; liseli oyun geliştiricileri tek çatı altında toplayan ilk adımlar atıldı.",
       },
       {
         id: "t2",
-        year: "2019",
-        title: "Toplulukla Büyüme",
+        year: "2026 (Erken Dönem)",
+        title: "Etkinlikler ve Eğitimler",
         description:
-          "İlk etkinliklerimizi düzenledik ve üyelerimizle birlikte hızla büyümeye başladık.",
+          "Game jam'ler, mentorluklar ve atölye çalışmalarıyla topluluk yapımızı güçlendirdik ve üye ağımızı genişlettik.",
       },
       {
         id: "t3",
-        year: "2021",
-        title: "Projelerle Sıçrama",
-        description: "Game jam'ler, eğitimler ve projelerle daha geniş kitlelere ulaştık.",
+        year: "2026 (Günümüz)",
+        title: "Sektörel Üretim",
+        description:
+          "Genç yeteneklerin fikirlerini sektörel standartlarda projelere dönüştürmelerini desteklemeyi sürdürüyoruz.",
       },
       {
         id: "t4",
-        year: "2024+",
-        title: "Geleceğe Doğru",
-        description: "81 ilde daha fazla gence dokunuyor, oyun ekosistemini birlikte büyütüyoruz.",
+        year: "Gelecek",
+        title: "Ulusal Ekosistem",
+        description:
+          "Türkiye'nin her ilindeki lise öğrencilerine ulaşarak liseli geliştiricilerin geleceğine yön vermeyi hedefliyoruz.",
       },
     ],
   },
@@ -298,63 +300,8 @@ export const DEFAULT_CMS_DATA: CMSData = {
       github: "https://github.com",
     },
   ],
-  news: [
-    {
-      id: "anatolia-game-jam-2025-kayitlari-basladi",
-      title: "Anatolia Game Jam 2025 Başvuruları Başladı!",
-      excerpt:
-        "Türkiye genelindeki tüm lise öğrencilerinin katılımına açık olan 48 saatlik oyun maratonumuz için kayıtlar resmen açıldı.",
-      content: [
-        "Liseler Oyun Geliştiricileri Derneği (LOGD) tarafından her yıl geleneksel olarak düzenlenen Anatolia Game Jam, bu yıl rekor katılımla gerçekleşecek.",
-        "Öğrenciler 48 saat boyunca belirlenen tema çerçevesinde takım halinde veya bireysel olarak oyun geliştirecek.",
-        "Sektör profesyonellerinden oluşan jüri değerlendirmesinin ardından başarılı ekiplere mentorluk ve teknoloji destek ödülleri verilecek.",
-      ],
-      category: "Etkinlikler",
-      date: "14 Ocak 2025",
-      readTime: "4 dk",
-      image:
-        "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/news_gamejam_stage_1788553284412.webp",
-      isFeatured: true,
-      status: "published",
-    },
-    {
-      id: "pixel-art-ve-animasyon-atolyesi-tamamlandi",
-      title: "Liseliler İçin 2D Pixel Art & Animasyon Atölyesi Tamamlandı",
-      excerpt:
-        "Aseprite ve pixel art teknikleri üzerine 300'den fazla liselinin katıldığı 3 günlük çevrim içi atölyemiz başarıyla sona erdi.",
-      content: [
-        "Katılımcılar karakter çizimi, sprite sheet hazırlama ve oyun motorlarına aktarma süreçlerini uygulamalı olarak deneyimlediler.",
-        "Atölye sonunda hazırlanan tüm sanat varlıkları LOGD topluluk kütüphanesinde açık kaynak olarak paylaşıldı.",
-      ],
-      category: "Topluluk",
-      date: "28 Aralık 2024",
-      readTime: "3 dk",
-      image:
-        "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/event_pixel_art_1788550843151.webp",
-      isFeatured: false,
-      status: "published",
-    },
-    {
-      id: "oyun-sektorunde-kariyer-ve-mentorluk-agi-genisliyor",
-      title: "Oyun Sektöründe Kariyer: Mentorluk Ağı 600+ Profesyonelle Büyüyor",
-      excerpt:
-        "Türkiye'nin önde gelen oyun stüdyolarından kıdemli yazılımcı ve sanatçılar liseli geliştiricilerle birebir eşleşiyor.",
-      content: [
-        "Yeni dönem mentorluk programımızda Unreal Engine, Unity ve Blender alanlarında uzman isimler gençlere portfolyo incelemesi ve kariyer yönlendirmesi yapıyor.",
-      ],
-      category: "Industry News",
-      date: "20 Aralık 2024",
-      readTime: "5 dk",
-      image:
-        "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/event_mentoring_thumb_1788550908613.webp",
-      isFeatured: false,
-      status: "published",
-    },
-  ],
-  events: DEFAULT_UPCOMING.map((e) => ({
-    ...e,
-    status: "published" as const,
-  })),
+  news: [],
+  events: [],
   games: DEFAULT_GAMES.map((g) => ({
     ...g,
     status: "published" as const,
@@ -452,14 +399,65 @@ export function getCMSData(): CMSData {
       const existingMap = new Map<string, CMSGameProject>(games.map((g) => [g.id, g]));
       games = DEFAULT_CMS_DATA.games.map((dg) => existingMap.get(dg.id) || dg);
     }
+    // Filter out removed games
+    games = games.filter((g) => !["feed-em", "deep-divers", "hizli-mucadele"].includes(g.id));
+
+    // Filter out representative/mock news and events
+    const mockNewsIds = new Set([
+      "anatolia-game-jam-2025-kayitlari-basladi",
+      "pixel-art-ve-animasyon-atolyesi-tamamlandi",
+      "oyun-sektorunde-kariyer-ve-mentorluk-agi-genisliyor",
+      "anatolia-game-jam-2025",
+      "pixel-art-atolyesi-harika-calismalar",
+      "unreal-engine-5-4-ozellikleri",
+      "yeni-mentorluk-programi-basliyor",
+      "logd-topluluk-bulusmasi-istanbul",
+      "global-game-jam-2025-kayitlari",
+      "blender-karakter-modelleme-rehberi",
+    ]);
+    const news: CMSNewsArticle[] = (parsed?.news || []).filter(
+      (n: CMSNewsArticle) => !mockNewsIds.has(n.id),
+    );
+
+    const mockEventIds = new Set([
+      "snowy-jam-2025",
+      "ggj-next-2025",
+      "oyun-tasariminda-hikaye-anlatimi",
+      "pixel-art-atolyesi",
+      "indie-games-showcase",
+      "unity-2d-game-jam",
+      "blender-ile-3d-modelleme-atolyesi",
+      "mentorluk-ve-gelistirici-bulusmasi",
+      "unreal-engine-5e-giris",
+      "global-game-jam-2025",
+      "izmir-indie-games-showcase",
+      "godot-4-game-jam",
+      "oyun-muzigi-ve-ses-tasarimi",
+    ]);
+    const events: CMSUpcomingEvent[] = (parsed?.events || []).filter(
+      (e: CMSUpcomingEvent) => !mockEventIds.has(e.id),
+    );
+
+    const hasOldTimeline = parsed?.about?.timeline?.some(
+      (t: { year?: string }) => t.year === "2018" || t.year === "2024+",
+    );
+    const hasOldMission =
+      parsed?.about?.missionTitle === "Misyonumuz" &&
+      parsed?.about?.missionDesc?.includes("dört bir yanındaki");
+    const about =
+      hasOldTimeline || hasOldMission || !parsed?.about
+        ? DEFAULT_CMS_DATA.about
+        : { ...DEFAULT_CMS_DATA.about, ...(parsed.about || {}) };
 
     return {
       ...DEFAULT_CMS_DATA,
       ...parsed,
       games,
+      news,
+      events,
       settings: { ...DEFAULT_CMS_DATA.settings, ...(parsed.settings || {}) },
       home: { ...DEFAULT_CMS_DATA.home, ...(parsed.home || {}) },
-      about: { ...DEFAULT_CMS_DATA.about, ...(parsed.about || {}) },
+      about,
     };
   } catch (err) {
     console.error("Failed to parse CMS data from localStorage:", err);

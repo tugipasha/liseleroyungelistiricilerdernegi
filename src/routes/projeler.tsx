@@ -72,6 +72,9 @@ function ProjelerShowcasePage() {
         "aetheria-winds",
         "orbit-escape",
         "forest-keeper",
+        "feed-em",
+        "deep-divers",
+        "hizli-mucadele",
       ].includes(id);
 
     const cmsGames: ShowcaseGame[] = (cms?.games || [])

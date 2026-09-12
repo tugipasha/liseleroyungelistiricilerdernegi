@@ -19,14 +19,6 @@ import { Footer } from "@/components/site/Footer";
 import { useCMS, type NewsPost } from "@/lib/cms-store";
 import heroBg from "@/assets/hero-bg.png.asset.json";
 
-// Local assets
-import newsGamejamStageArtwork from "@/assets/images/news_gamejam_stage_1788553284412.webp";
-import pixelArtArtwork from "@/assets/images/event_pixel_art_1788550843151.webp";
-import mentoringArtwork from "@/assets/images/event_mentoring_thumb_1788550908613.webp";
-import istanbulMeetingArtwork from "@/assets/images/event_izmir_showcase_1788549161031.webp";
-import globalJamArtwork from "@/assets/images/event_global_jam_1788549176358.webp";
-import blenderArtwork from "@/assets/images/event_blender_thumb_1788550878871.webp";
-
 export const Route = createFileRoute("/haberler")({
   head: () => ({
     meta: [
@@ -64,135 +56,7 @@ export interface NewsArticle {
   tags: string[];
 }
 
-const NEWS_DATA: NewsArticle[] = [
-  {
-    id: "anatolia-game-jam-2025",
-    isFeatured: true,
-    featuredLabel: "ÖNE ÇIKAN",
-    category: "Etkinlikler",
-    date: "24 Mayıs 2025",
-    readTime: "5 dk okuma",
-    title: "Anatolia Game Jam 2025 başarıyla tamamlandı!",
-    excerpt:
-      "48 saatlik dev bir yaratıcılık maratonu geride kaldı. Yüzlerce geliştirici, onlarca harika oyun ve unutulmaz anılarla dolu bir etkinlik oldu.",
-    image: newsGamejamStageArtwork,
-    author: "LOGD Etkinlik Koordinasyonu",
-    authorRole: "Etkinlik Ekibi",
-    tags: ["GameJam", "Anatolia2025", "Hackathon", "ÖğrenciGeliştiriciler"],
-    content: [
-      "Türkiye'nin dört bir yanından liseli oyun geliştiricilerini bir araya getiren Anatolia Game Jam 2025, 48 saatlik kesintisiz yaratıcılık ve kod maratonunun ardından coşkulu bir kapanış seremonisiyle tamamlandı.",
-      "Etkinlik boyunca 450'den fazla genç geliştirici, 'Denge & Kaos' teması etrafında özgün oyun mekanikleri kurguladı. Takımlar; Unreal Engine, Unity ve Godot gibi modern oyun motorlarını kullanarak toplam 72 adet oynanabilir prototip oyun teslim etti.",
-      "Sektör profesyonellerinden oluşan jüri ekibi; tasarım derinliği, görsel anlatım, ses tasarımı ve tema uyumu kriterlerini dikkate alarak derecelendirmeleri tamamladı. İlk 3'e giren takımlara geliştirme bursu, donanım destekleri ve stüdyo staj imkânları takdim edildi.",
-      "Tüm katılımcılarımıza, mentorlarımıza ve destekçilerimize teşekkür ederiz. Projelerin tüm detayları ve oynanabilir demo sürümleri LOGD Showcase sayfamızda yayında!",
-    ],
-  },
-  {
-    id: "pixel-art-atolyesi-harika-calismalar",
-    category: "Topluluk",
-    date: "14 Mayıs 2025",
-    readTime: "4 dk okuma",
-    title: "Pixel Art Atölyesi’nden Harika Çalışmalar",
-    excerpt:
-      "Atölyemize katılan geliştiricilerimizin ortaya koyduğu harika pixel art çalışmalarını derledik. Yaratıcılık sınır tanımıyor!",
-    image: pixelArtArtwork,
-    author: "Sanat & Tasarım Kolu",
-    authorRole: "Topluluk Mentorları",
-    tags: ["PixelArt", "OyunSanatı", "2DAnimation", "Atölye"],
-    content: [
-      "Liseli Oyun Geliştiricileri Derneği bünyesinde düzenlenen 3 haftalık uygulamalı Pixel Art Atölyesi büyük bir ilgiyle sona erdi. Katılımcılar; renk paleti kısıtlamaları, sprite animasyonları, tileset kurgusu ve ışık-gölge teknikleri üzerine kapsamlı bir eğitim aldı.",
-      "Aseprite ve LibreSprite araçlarıyla hazırlanan çalışmalar arasında; retro platformer karakterleri, distopik siberpunk şehir manzaraları ve dinamik efekt animasyonları öne çıktı.",
-      "Atölye sürecinde üretilen tüm çizimler, dernek üyelerimizin geliştirdiği bağımsız açık kaynaklı oyun projelerinde kullanılmak üzere açık varlık kütüphanemize eklendi.",
-    ],
-  },
-  {
-    id: "unreal-engine-5-4-ozellikleri",
-    category: "Industry News",
-    date: "12 Nisan 2025",
-    readTime: "6 dk okuma",
-    title: "Unreal Engine 5.4 Öne Çıkan Özellikleri",
-    excerpt: "Performans, görsellik ve üretkenlik odaklı yeni özelliklere yakından bakıyoruz.",
-    image: "/unreal-engine-banner.svg",
-    author: "Teknoloji Araştırma Grubu",
-    authorRole: "Teknik Yazar",
-    tags: ["UnrealEngine", "UE5", "GrafikProgramlama", "OyunMotoru"],
-    content: [
-      "Epic Games, Unreal Engine 5.4 sürümünü geliştiricilerin kullanımına sundu. Bu sürüm; özellikle açık dünya performans optimizasyonları, Nanite geliştirmeleri ve yeni animasyon aracı Motion Matching ile öne çıkıyor.",
-      "Nanite sistemine eklenen mo-cap destekli deforme olabilen mesh kabiliyeti, karakter ve bitki örtüsü render kalitesini yepyeni bir seviyeye taşıyor. Aynı zamanda Lumen, donanım tabanlı ışın izleme desteğiyle daha düşük donanımlarda 60 FPS hedefini kolaylaştırıyor.",
-      "Dernek olarak Unreal Engine ile ilgilenen liseli üyelerimize yönelik UE 5.4 hazırlık kılavuzumuzu ve örnek proje şablonlarımızı kaynaklar bölümünde ücretsiz paylaştık.",
-    ],
-  },
-  {
-    id: "yeni-mentorluk-programi-basliyor",
-    category: "Topluluk",
-    date: "22 Mart 2025",
-    readTime: "3 dk okuma",
-    title: "Toplulukta Yeni Mentorluk Programı Başlıyor!",
-    excerpt:
-      "Deneyimli geliştiricilerle yeni başlayanları buluşturacağımız mentorluk programı başlıyor. Hemen başvurun!",
-    image: mentoringArtwork,
-    author: "LOGD Akademi",
-    authorRole: "Eğitim Kurulu",
-    tags: ["Mentorluk", "Kariyer", "OyunGeliştirme", "Eğitim"],
-    content: [
-      "Oyun sektöründe profesyonel olarak çalışan kıdemli yazılımcılar, 3D artistler ve oyun tasarımcıları, LOGD üyeleriyle bire bir eşleşiyor!",
-      "6 hafta sürecek mentorluk periyodunda; portfolyo incelemeleri, kod refactoring seansları, oyun mekaniği prototip değerlendirmeleri ve üniversite/kariyer yol haritası oluşturma seansları gerçekleştirilecek.",
-      "Programa katılmak isteyen tüm dernek üyelerimiz başvurularını Discord topluluk duyuruları veya iletişim sayfamız üzerinden iletebilirler.",
-    ],
-  },
-  {
-    id: "logd-topluluk-bulusmasi-istanbul",
-    category: "Duyurular",
-    date: "8 Mart 2025",
-    readTime: "4 dk okuma",
-    title: "LOGD Topluluk Buluşması İstanbul’da Gerçekleşti",
-    excerpt:
-      "Üyelerimizle bir araya geldiğimiz bu özel gün, dolu dolu geçti! Sunumlar, paneller ve networking oturumlarından öne çıkanlar burada.",
-    image: istanbulMeetingArtwork,
-    author: "Yönetim Kurulu",
-    authorRole: "Topluluk İlişkileri",
-    tags: ["Buluşma", "İstanbul", "Networking", "Topluluk"],
-    content: [
-      "İstanbul Kadıköy'de düzenlediğimiz fiziksel topluluk buluşmasında 120'den fazla liseli oyun geliştiricisi, öğretmenleri ve bağımsız oyun stüdyosu kurucuları bir araya geldi.",
-      "Günün ilk yarısında 'Genç Yaşta Bağımsız Oyun Stüdyosu Kurmak' ve 'Steam'de İlk Oyunu Yayınlama Deneyimi' başlıklı iki ilham verici panel gerçekleşti.",
-      "Etkinlik alanında kurulan demo stantlarında üyelerimiz üzerinde çalıştıkları alfa aşamasındaki oyunları birbirine test ettirdi ve anlık geri bildirim topladı.",
-    ],
-  },
-  // Ekstra yüklenen haberler (Daha Fazla Haber Yükle için)
-  {
-    id: "global-game-jam-2025-kayitlari",
-    category: "Etkinlikler",
-    date: "18 Şubat 2025",
-    readTime: "4 dk okuma",
-    title: "Global Game Jam 2025 Türkiye Ön Kayıtları Başladı",
-    excerpt:
-      "Dünyanın en büyük oyun yapım maratonuna hazır mısınız? LOGD fiziksel ve online jam merkezleriyle bu yıl da sahadayız.",
-    image: globalJamArtwork,
-    author: "Etkinlik Komitesi",
-    authorRole: "Koordinatör",
-    tags: ["GGJ2025", "GlobalGameJam", "Yarışma"],
-    content: [
-      "Her yıl dünya çapında eş zamanlı olarak kutlanan Global Game Jam heyecanı yeniden başlıyor. LOGD olarak hem Ankara hem İstanbul fiziksel lokasyonlarımızda genç geliştiricilere ev sahipliği yapacağız.",
-      "Teknik ekipman desteği, yemek ve kesintisiz internet imkânlarıyla donatılmış merkezlerimizde yerinizi ayırtmak için kayıt formunu doldurmayı unutmayın.",
-    ],
-  },
-  {
-    id: "blender-karakter-modelleme-rehberi",
-    category: "Industry News",
-    date: "2 Şubat 2025",
-    readTime: "5 dk okuma",
-    title: "Blender 4.2 ile Oyun Varlıkları Modelleme Rehberi",
-    excerpt:
-      "Low-poly karakter tasarımlarından rigging ve animasyona kadar adım adım profesyonel iş akışı.",
-    image: blenderArtwork,
-    author: "3D Sanat Kulübü",
-    authorRole: "Teknik Eğitmen",
-    tags: ["Blender", "3DModelleme", "Rigging", "OyunSanatı"],
-    content: [
-      "Bağımsız oyun projelerinde en çok tercih edilen açık kaynaklı 3D modelleme yazılımı Blender için hazırladığımız kapsamlı eğitim serisi yayınlandı.",
-      "Rehberde; topoloji optimizasyonu, UV açma stratejileri, texture bake alma ve Unreal/Unity motorlarına kusursuz FBX aktarımı detaylıca işlenmektedir.",
-    ],
-  },
-];
+const NEWS_DATA: NewsArticle[] = [];
 
 const CATEGORIES = ["Tümü", "Etkinlikler", "Topluluk", "Industry News", "Duyurular"] as const;
 
@@ -383,7 +247,36 @@ function HaberlerPage() {
         </div>
 
         {/* News Cards List */}
-        {displayedNews.length === 0 ? (
+        {combinedNews.length === 0 ? (
+          <div className="rounded-3xl border border-dashed border-border/80 bg-card/60 p-12 text-center">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-navy/10 text-navy">
+              <Sparkles className="h-6 w-6" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-foreground">
+              Henüz yayınlanmış bir haber bulunmuyor
+            </h3>
+            <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-muted-foreground sm:text-sm">
+              Liseler Oyun Geliştiricileri Derneği'nin duyuruları, etkinlik raporları ve haber
+              bültenleri yakında bu sayfada paylaşılacaktır.
+            </p>
+            <div className="mt-6 flex flex-wrap justify-center gap-3">
+              <a
+                href="/"
+                className="inline-flex items-center gap-1.5 rounded-full bg-navy px-5 py-2 text-xs font-semibold text-cream transition-colors hover:bg-navy-deep sm:text-sm"
+              >
+                Ana Sayfaya Dön
+              </a>
+              <a
+                href="https://discord.gg/logd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-card px-5 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-secondary sm:text-sm"
+              >
+                Topluluğumuza Katıl
+              </a>
+            </div>
+          </div>
+        ) : displayedNews.length === 0 ? (
           <div className="rounded-3xl border border-dashed border-border p-12 text-center">
             <p className="text-sm font-medium text-muted-foreground">
               Aramanız veya seçtiğiniz kategoriye uygun haber bulunamadı.

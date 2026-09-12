@@ -1,7 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { Globe, Search, Menu, X, ChevronDown } from "lucide-react";
 import logo from "@/assets/logd-logo.png.asset.json";
-import { SearchModal } from "@/components/site/SearchModal";
+
+// Dynamically imported to eliminate ~25KB from initial page bundle and TBT
+const SearchModal = lazy(() =>
+  import("@/components/site/SearchModal").then((m) => ({ default: m.SearchModal })),
+);
+
+const preloadSearch = () => {
+  import("@/components/site/SearchModal");
+};
 
 interface HeaderProps {
   activeNav?: string;
@@ -31,6 +39,18 @@ export function Header({ activeNav }: HeaderProps) {
     window.addEventListener("click", close);
     return () => window.removeEventListener("click", close);
   }, [langOpen]);
+
+  // Global Ctrl+K / Cmd+K listener to trigger search modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">
@@ -74,8 +94,10 @@ export function Header({ activeNav }: HeaderProps) {
           {/* Search Button (Desktop & Mobile) */}
           <button
             type="button"
-            aria-label="Ara"
+            aria-label="Arama yap"
             title="Arama yap (Ctrl+K)"
+            onMouseEnter={preloadSearch}
+            onFocus={preloadSearch}
             onClick={() => setSearchOpen(true)}
             className="flex h-9 w-9 items-center justify-center rounded-md text-cream/80 transition-colors hover:bg-cream/10 hover:text-cream"
           >
@@ -84,6 +106,8 @@ export function Header({ activeNav }: HeaderProps) {
 
           <div className="relative hidden sm:block">
             <button
+              type="button"
+              aria-label="Dil seçimi"
               onClick={(e) => {
                 e.stopPropagation();
                 setLangOpen((v) => !v);
@@ -99,6 +123,7 @@ export function Header({ activeNav }: HeaderProps) {
                 {LANGS.map((l) => (
                   <button
                     key={l}
+                    type="button"
                     onClick={() => {
                       setLang(l === "Türkçe" ? "TR" : l === "English" ? "EN" : "DE");
                       setLangOpen(false);
@@ -113,7 +138,8 @@ export function Header({ activeNav }: HeaderProps) {
           </div>
 
           <button
-            aria-label="Menü"
+            type="button"
+            aria-label="Menüyü aç veya kapat"
             onClick={() => setMobileOpen((v) => !v)}
             className="flex h-10 w-10 items-center justify-center rounded-md text-cream lg:hidden"
           >
@@ -127,6 +153,8 @@ export function Header({ activeNav }: HeaderProps) {
           <div className="mb-3 flex items-center justify-between border-b border-cream/10 pb-3">
             <button
               type="button"
+              onMouseEnter={preloadSearch}
+              onFocus={preloadSearch}
               onClick={() => {
                 setMobileOpen(false);
                 setSearchOpen(true);
@@ -153,8 +181,12 @@ export function Header({ activeNav }: HeaderProps) {
         </div>
       )}
 
-      {/* Global Search Dialog */}
-      <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
+      {/* Global Search Dialog - Lazy loaded on demand */}
+      {searchOpen && (
+        <Suspense fallback={null}>
+          <SearchModal open={searchOpen} onOpenChange={setSearchOpen} />
+        </Suspense>
+      )}
     </header>
   );
 }
