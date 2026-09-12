@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" fill="none" aria-label="Games for Change Türkiye">
+  <rect x="2" y="2" width="196" height="116" rx="10" stroke="#E59C1B" stroke-width="2.5" fill="#FFFFFF"/>
+  <polygon points="46,18 128,60 46,102" fill="#E59C1B"/>
+  <text x="50" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#FFFFFF" letter-spacing="0.2">GAMES</text>
+  <text x="50" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#FFFFFF" letter-spacing="0.2">FOR</text>
+  <text x="50" y="76" font-family="system-ui, -apple-system, sans-serif" font-size="13.5" font-weight="900" fill="#FFFFFF" letter-spacing="0.2">CHANGE</text>
+  <text x="96" y="93" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="900" fill="#E59C1B" letter-spacing="0.5">TÜRKİYE</text>
+</svg>

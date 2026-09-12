@@ -1,0 +1,6 @@
+{
+  "name": "LOGD - Liseli Oyun Geliştiricileri Derneği",
+  "description": "Liseli oyun geliştiricilerinin topluluğu: projeler, etkinlikler, kaynaklar ve fırsatlar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

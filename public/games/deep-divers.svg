@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="480" viewBox="0 0 600 480">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0e7490" />
+        <stop offset="100%" stop-color="#082f49" />
+      </linearGradient>
+      <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect width="600" height="480" fill="url(#grad)" />
+    <rect width="600" height="480" fill="url(#grid)" />
+    <circle cx="300" cy="200" r="90" fill="rgba(255,255,255,0.1)" />
+    <text x="300" y="225" font-size="72" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif">🌊</text>
+    <text x="300" y="340" font-size="32" font-weight="bold" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif">Deep-Divers</text>
+    <text x="300" y="380" font-size="18" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="system-ui, sans-serif">egemen123 · Okyanus Keşfi</text>
+    <rect x="230" y="415" width="140" height="28" rx="14" fill="rgba(0,0,0,0.3)" />
+    <text x="300" y="434" font-size="13" font-weight="bold" text-anchor="middle" fill="#F4D06F" font-family="system-ui, sans-serif">GGJ NEXT LOGD-IN</text>
+  </svg>
