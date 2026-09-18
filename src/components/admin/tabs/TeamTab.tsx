@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Edit2, Trash2, Users, Mail, Linkedin, Github } from "lucide-react";
+import { Plus, School, Phone, Mail } from "lucide-react";
 import { type TeamMember } from "@/lib/cms-store";
 
 interface TeamTabProps {
@@ -15,13 +15,12 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
   const handleStartNew = () => {
     setIsNew(true);
     setEditingMember({
-      id: "ekip-" + Date.now(),
+      id: "baskan-" + Date.now(),
       name: "",
-      role: "Koordinatör",
-      image: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/team_ahmet_1788547015900.webp",
-      email: "info@logd.org.tr",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      role: "Topluluk Başkanı",
+      school: "",
+      phone: "",
+      email: "Business@logddev.com",
     });
   };
 
@@ -33,13 +32,23 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
     setIsNew(false);
   };
 
+  const getInitials = (name: string) => {
+    if (!name) return "TP";
+    const parts = name.trim().split(" ");
+    if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#1d2327]">Ekip & Mentor Yönetimi</h1>
+          <h1 className="text-xl font-bold text-[#1d2327]">
+            Lise Topluluk Başkanları & Temsilciler
+          </h1>
           <p className="text-xs text-[#646970]">
-            Yönetim ekibini, topluluk liderlerini ve mentorları ekleyin, düzenleyin veya kaldırın.
+            Liselerdeki LOGD okul başkanlarını ve topluluk temsilcilerini ekleyin, düzenleyin veya
+            kaldırın.
           </p>
         </div>
         <button
@@ -47,11 +56,11 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
           onClick={handleStartNew}
           className="inline-flex items-center gap-1.5 rounded bg-[#2271b1] px-3.5 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-[#135e96]"
         >
-          <Plus className="h-4 w-4" /> Yeni Ekip Üyesi Ekle
+          <Plus className="h-4 w-4" /> Yeni Topluluk Başkanı Ekle
         </button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {team.map((member) => (
           <div
             key={member.id}
@@ -59,25 +68,36 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
           >
             <div>
               <div className="flex items-center gap-3">
-                <img
-                  src={member.image}
-                  alt=""
-                  className="h-12 w-12 rounded-full object-cover border border-[#c3c4c7]"
-                  onError={(e) => {
-                    (e.target as HTMLElement).style.display = "none";
-                  }}
-                />
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1d2327] text-xs font-bold text-white shadow-inner">
+                  {getInitials(member.name)}
+                </div>
                 <div>
                   <h3 className="font-bold text-[#1d2327]">{member.name}</h3>
-                  <p className="text-[11px] font-medium text-[#2271b1]">{member.role}</p>
+                  <p className="text-[11px] font-medium text-[#2271b1]">
+                    {member.role || "Topluluk Başkanı"}
+                  </p>
                 </div>
               </div>
 
-              <div className="mt-4 space-y-1 text-xs text-[#646970]">
-                <div className="flex items-center gap-1.5 truncate">
-                  <Mail className="h-3.5 w-3.5 shrink-0 text-[#8c8f94]" />
-                  <span className="truncate">{member.email}</span>
-                </div>
+              <div className="mt-3.5 space-y-1.5 text-xs text-[#646970]">
+                {member.school && (
+                  <div className="flex items-center gap-1.5 font-medium text-[#2c3338]">
+                    <School className="h-3.5 w-3.5 shrink-0 text-[#2271b1]" />
+                    <span className="truncate">{member.school}</span>
+                  </div>
+                )}
+                {member.phone && (
+                  <div className="flex items-center gap-1.5">
+                    <Phone className="h-3.5 w-3.5 shrink-0 text-[#8c8f94]" />
+                    <span>{member.phone}</span>
+                  </div>
+                )}
+                {member.email && (
+                  <div className="flex items-center gap-1.5 truncate">
+                    <Mail className="h-3.5 w-3.5 shrink-0 text-[#8c8f94]" />
+                    <span className="truncate">{member.email}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -95,7 +115,9 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
               <button
                 type="button"
                 onClick={() => {
-                  if (confirm(`"${member.name}" üyesini silmek istediğinize emin misiniz?`)) {
+                  if (
+                    confirm(`"${member.name}" temsilci kaydını silmek istediğinize emin misiniz?`)
+                  ) {
                     onDeleteMember(member.id);
                   }
                 }}
@@ -113,7 +135,7 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
           <div className="w-full max-w-md rounded-lg border border-[#c3c4c7] bg-white shadow-xl">
             <div className="flex items-center justify-between border-b border-[#f0f0f1] px-6 py-4">
               <h2 className="text-sm font-bold text-[#1d2327]">
-                {isNew ? "Yeni Ekip Üyesi Ekle" : "Ekip Üyesini Düzenle"}
+                {isNew ? "Yeni Topluluk Başkanı Ekle" : "Topluluk Başkanını Düzenle"}
               </h2>
               <button
                 type="button"
@@ -126,13 +148,27 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
 
             <form onSubmit={handleSave} className="space-y-4 p-6">
               <div>
-                <label className="block text-xs font-semibold text-[#1d2327]">Ad Soyad</label>
+                <label className="block text-xs font-semibold text-[#1d2327]">Okul Adı</label>
+                <input
+                  type="text"
+                  required
+                  value={editingMember.school || ""}
+                  onChange={(e) => setEditingMember({ ...editingMember, school: e.target.value })}
+                  placeholder="Örn: İzmir Fen Lisesi (İFL)"
+                  className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-[#1d2327]">
+                  Temsil Eden Başkanın Adı
+                </label>
                 <input
                   type="text"
                   required
                   value={editingMember.name}
                   onChange={(e) => setEditingMember({ ...editingMember, name: e.target.value })}
-                  placeholder="Örn: Ahmet Yılmaz"
+                  placeholder="Örn: Deniz Ak"
                   className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
                 />
               </div>
@@ -142,53 +178,31 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
                 <input
                   type="text"
                   required
-                  value={editingMember.role}
+                  value={editingMember.role || "Topluluk Başkanı"}
                   onChange={(e) => setEditingMember({ ...editingMember, role: e.target.value })}
-                  placeholder="Örn: Topluluk Yöneticisi"
+                  placeholder="Örn: Topluluk Başkanı"
                   className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-[#1d2327]">
-                  Profil Fotoğrafı URL
-                </label>
-                <input
-                  type="text"
-                  value={editingMember.image}
-                  onChange={(e) => setEditingMember({ ...editingMember, image: e.target.value })}
-                  className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-[#1d2327]">E-posta</label>
-                <input
-                  type="email"
-                  value={editingMember.email}
-                  onChange={(e) => setEditingMember({ ...editingMember, email: e.target.value })}
-                  className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-[#1d2327]">LinkedIn URL</label>
+                  <label className="block text-xs font-semibold text-[#1d2327]">Telefon No</label>
                   <input
                     type="text"
-                    value={editingMember.linkedin}
-                    onChange={(e) =>
-                      setEditingMember({ ...editingMember, linkedin: e.target.value })
-                    }
+                    value={editingMember.phone || ""}
+                    onChange={(e) => setEditingMember({ ...editingMember, phone: e.target.value })}
+                    placeholder="Örn: 0544 394 84 76"
                     className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-[#1d2327]">GitHub URL</label>
+                  <label className="block text-xs font-semibold text-[#1d2327]">E-posta</label>
                   <input
-                    type="text"
-                    value={editingMember.github}
-                    onChange={(e) => setEditingMember({ ...editingMember, github: e.target.value })}
+                    type="email"
+                    value={editingMember.email || ""}
+                    onChange={(e) => setEditingMember({ ...editingMember, email: e.target.value })}
+                    placeholder="Business@logddev.com"
                     className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
                   />
                 </div>
@@ -206,7 +220,7 @@ export function TeamTab({ team, onSaveMember, onDeleteMember }: TeamTabProps) {
                   type="submit"
                   className="rounded bg-[#2271b1] px-5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#135e96]"
                 >
-                  {isNew ? "Üyeyi Kaydet" : "Değişiklikleri Güncelle"}
+                  {isNew ? "Kaydı Ekle" : "Değişiklikleri Güncelle"}
                 </button>
               </div>
             </form>

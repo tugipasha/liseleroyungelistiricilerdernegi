@@ -18,6 +18,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { useI18n } from "@/lib/i18n";
 
 export interface SearchItem {
   id: string;
@@ -256,62 +257,61 @@ const SEARCH_DATABASE: SearchItem[] = [
     badge: "Kariyer",
   },
 
-  // Ekip
+  // Ekip & Topluluk Başkanları
   {
     id: "team-1",
-    title: "Ahmet Yılmaz - Genel Koordinatör",
-    description:
-      "LOGD Kurucu & Genel Koordinatörü. Topluluk stratejisi ve ulusal lise organizasyonları.",
+    title: "Yavuz Deniz - Aydın Fen Lisesi",
+    description: "Aydın Fen Lisesi LOGD Topluluk Başkanı. Okul temsilciliği ve oyun kulübü.",
     category: "ekip",
-    categoryLabel: "Ekip",
+    categoryLabel: "Temsilci",
     href: "/ekibimiz",
-    badge: "Yönetim",
+    badge: "Fen Lisesi",
   },
   {
     id: "team-2",
-    title: "Zeynep Kaya - Etkinlik & Game Jam Direktörü",
-    description: "Game Jam maratonları, atölye organizasyonları ve jüri koordinasyonu sorumlusu.",
+    title: "Efkan Şenol - Bornova Anadolu Lisesi",
+    description:
+      "Bornova Anadolu Lisesi LOGD Topluluk Başkanı. Oyun maratonları ve kulüp koordinasyonu.",
     category: "ekip",
-    categoryLabel: "Ekip",
+    categoryLabel: "Temsilci",
     href: "/ekibimiz",
-    badge: "Etkinlik",
+    badge: "Anadolu Lisesi",
   },
   {
     id: "team-3",
-    title: "Mertcan Demir - Topluluk Lideri",
-    description: "Discord sunucusu, il kulüp temsilcilikleri ve lise öğrenci mentorluğu lideri.",
+    title: "Deniz Ak - İzmir Fen Lisesi (İFL)",
+    description: "İzmir Fen Lisesi LOGD Topluluk Başkanı. Algoritma ve oyun geliştirme topluluğu.",
     category: "ekip",
-    categoryLabel: "Ekip",
+    categoryLabel: "Temsilci",
     href: "/ekibimiz",
-    badge: "Topluluk",
+    badge: "Fen Lisesi",
   },
   {
     id: "team-4",
-    title: "Elifnur Şahin - Tasarım & Sanat Kolu Lideri",
-    description: "UI/UX, 2D/3D oyun sanatı mentorlukları ve görsel iletişim tasarımı.",
+    title: "Mehmet Kaan Cengiz - İzmir Atatürk Lisesi",
+    description: "İzmir Atatürk Lisesi LOGD Topluluk Başkanı. Lise oyun geliştirme koordinatörü.",
     category: "ekip",
-    categoryLabel: "Ekip",
+    categoryLabel: "Temsilci",
     href: "/ekibimiz",
-    badge: "Sanat",
+    badge: "Anadolu Lisesi",
   },
   {
     id: "team-5",
-    title: "Batuhan Yıldız - Yazılım & Altyapı Direktörü",
-    description:
-      "Açık kaynak platformlar, web altyapısı ve teknik oyun motoru eğitimleri koordinatörü.",
+    title: "Furkan Yurt - Cihat Kora Anadolu Lisesi",
+    description: "Cihat Kora Anadolu Lisesi LOGD Topluluk Başkanı. Kulüp ve atölye organizatörü.",
     category: "ekip",
-    categoryLabel: "Ekip",
+    categoryLabel: "Temsilci",
     href: "/ekibimiz",
-    badge: "Yazılım",
+    badge: "Anadolu Lisesi",
   },
   {
     id: "team-6",
-    title: "Selin Aksoy - İletişim & Sponsorluk Direktörü",
-    description: "Sektör ortaklıkları, basın ilişkileri ve topluluk dış ilişkiler yürütücüsü.",
+    title: "Akif Ersoy Armağan - Mazhar Zorlu MTAL",
+    description: "Mazhar Zorlu MTAL LOGD Topluluk Başkanı. Bilişim ve oyun motoru atölyeleri.",
     category: "ekip",
-    categoryLabel: "Ekip",
+    categoryLabel: "Temsilci",
     href: "/ekibimiz",
-    badge: "İletişim",
+    badge: "MTAL",
   },
 ];
 
@@ -329,6 +329,7 @@ interface SearchModalProps {
 }
 
 export function SearchModal({ open, onOpenChange }: SearchModalProps) {
+  const { t } = useI18n();
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string>("all");
 
@@ -379,8 +380,8 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
         className="max-h-[85vh] w-[95vw] max-w-2xl overflow-hidden p-0 sm:rounded-2xl"
       >
         <DialogHeader className="sr-only">
-          <DialogTitle>LOGD Arama</DialogTitle>
-          <DialogDescription>Sitede oyun, etkinlik, haber veya ekip üyesi arayın</DialogDescription>
+          <DialogTitle>{t("search.title")}</DialogTitle>
+          <DialogDescription>{t("search.description")}</DialogDescription>
         </DialogHeader>
 
         {/* Search Header Bar */}
@@ -391,7 +392,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Oyun, etkinlik, haber, ekip veya sayfa ara..."
+            placeholder={t("search.inputPlaceholder")}
             autoFocus
             className="ml-3 w-full bg-transparent text-sm font-medium text-foreground placeholder:text-muted-foreground focus:outline-none sm:text-base"
           />
@@ -421,7 +422,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"
             }`}
           >
-            Tümü
+            {t("search.categoriesAll")}
           </button>
           <button
             type="button"
@@ -433,7 +434,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
             }`}
           >
             <Gamepad2 className="h-3.5 w-3.5" />
-            Oyunlar
+            {t("search.categoryGame")}
           </button>
           <button
             type="button"
@@ -445,7 +446,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
             }`}
           >
             <Calendar className="h-3.5 w-3.5" />
-            Etkinlikler
+            {t("search.categoryEvent")}
           </button>
           <button
             type="button"
@@ -457,7 +458,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
             }`}
           >
             <Newspaper className="h-3.5 w-3.5" />
-            Haberler
+            {t("search.categoryNews")}
           </button>
           <button
             type="button"
@@ -469,7 +470,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
             }`}
           >
             <Users className="h-3.5 w-3.5" />
-            Ekibimiz
+            {t("search.categoryTeam")}
           </button>
           <button
             type="button"
@@ -481,7 +482,7 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
             }`}
           >
             <FileText className="h-3.5 w-3.5" />
-            Sayfalar
+            {t("search.categoryPage")}
           </button>
         </div>
 
@@ -531,10 +532,10 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-muted-foreground">
                 <Search className="h-6 w-6" />
               </div>
-              <h4 className="mt-3 text-sm font-bold text-foreground">Sonuç bulunamadı</h4>
-              <p className="mt-1 text-xs text-muted-foreground">
-                "{query}" için eşleşen içerik bulunamadı. Farklı anahtar kelimeler deneyebilirsiniz.
-              </p>
+              <h4 className="mt-3 text-sm font-bold text-foreground">
+                {t("search.noResultsTitle")}
+              </h4>
+              <p className="mt-1 text-xs text-muted-foreground">{t("search.noResultsDesc")}</p>
               <div className="mt-4 flex flex-wrap justify-center gap-2">
                 {["Game Jam", "Unreal", "Unity", "Ekibimiz", "Hakkımızda", "Showcase"].map(
                   (tag) => (
@@ -556,8 +557,14 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
 
         {/* Footer info */}
         <div className="flex items-center justify-between border-t border-border/70 bg-card px-4 py-2.5 text-[11px] text-muted-foreground">
-          <span>{filteredResults.length} sonuç listelendi</span>
-          <span>Gitmek için sonuca tıklayın</span>
+          <span>
+            {filteredResults.length} {t("search.title")}
+          </span>
+          <div className="hidden sm:flex items-center gap-3">
+            <span>↑↓ {t("search.keyboardNavigate")}</span>
+            <span>↵ {t("search.keyboardSelect")}</span>
+            <span>ESC {t("search.keyboardClose")}</span>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

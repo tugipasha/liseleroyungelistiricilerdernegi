@@ -11,6 +11,7 @@ import { useEffect, lazy, Suspense, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { I18nProvider } from "../lib/i18n";
 
 // Lazy-loaded to defer Radix Dialog and preferences storage parsing until after initial paint
 const CookieConsent = lazy(() =>
@@ -179,7 +180,7 @@ function RootShell({ children }: { children: ReactNode }) {
             "@type": "ContactPoint",
             telephone: "+90-232-483-3500",
             contactType: "Dernek Genel Sekreterliği",
-            email: "info@logd.org.tr",
+            email: "Business@logddev.com",
             availableLanguage: ["Turkish", "English"],
           },
           {
@@ -190,11 +191,9 @@ function RootShell({ children }: { children: ReactNode }) {
           },
         ],
         sameAs: [
-          "https://www.instagram.com/logdresmi/",
-          "https://discord.gg/logd",
-          "https://github.com/logd-org",
-          "https://www.youtube.com/@logdresmi",
-          "https://x.com/logdresmi",
+          "https://www.instagram.com/logddev?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==",
+          "https://discord.gg/per2RTmmP",
+          "https://www.linkedin.com/company/liseler-oyun-geli%C5%9Ftiriciler-derne%C4%9Fi/posts/?viewAsMember=true",
         ],
         knowsAbout: [
           "Oyun Geliştirme",
@@ -251,11 +250,13 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-      <Suspense fallback={null}>
-        <CookieConsent />
-      </Suspense>
+      <I18nProvider>
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <Suspense fallback={null}>
+          <CookieConsent />
+        </Suspense>
+      </I18nProvider>
     </QueryClientProvider>
   );
 }

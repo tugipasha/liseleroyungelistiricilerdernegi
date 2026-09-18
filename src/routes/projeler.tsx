@@ -14,7 +14,6 @@ import {
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { useCMS } from "@/lib/cms-store";
-import heroBg from "@/assets/hero-bg.png.asset.json";
 import { PRIMARY_GAMES, type ShowcaseGame } from "@/data/showcaseGames";
 
 export const Route = createFileRoute("/projeler")({
@@ -167,62 +166,44 @@ function ProjelerShowcasePage() {
       <Header activeNav="Oyunlar" />
 
       {/* Hero Section */}
-      <section className="page-hero relative bg-navy-deep text-cream">
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-            type="image/webp"
-          />
-          <source srcSet={heroBg.url} type="image/webp" />
-          <img
-            src={heroBg.url}
-            alt=""
-            aria-hidden="true"
-            width={1774}
-            height={887}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-right"
-          />
-        </picture>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent" />
+      <section className="relative bg-navy-deep text-cream">
+        <div className="relative z-10 mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
+          {/* Breadcrumb */}
+          <nav
+            aria-label="Ekmek Kırıntısı"
+            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
+          >
+            <a href="/" className="transition-colors hover:text-cream">
+              Ana Sayfa
+            </a>
+            <span className="text-cream/40">›</span>
+            <span className="font-semibold text-cream">Showcase</span>
+          </nav>
 
-        <div className="relative z-10 mx-auto max-w-[1240px] px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
-          <div className="max-w-3xl">
-            {/* Breadcrumb */}
-            <nav
-              aria-label="Ekmek Kırıntısı"
-              className="mb-5 flex items-center gap-2 text-xs font-medium text-cream/70"
-            >
-              <a href="/" className="transition-colors hover:text-cream">
-                Ana Sayfa
-              </a>
-              <span className="text-cream/40">›</span>
-              <span className="font-semibold text-cream">Showcase</span>
-            </nav>
-
+          <div className="mx-auto flex max-w-3xl flex-col items-center">
             {/* Eyebrow tag */}
-            <div className="text-xs font-bold uppercase tracking-[0.2em] text-sand">SHOWCASE</div>
+            <div className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+              SHOWCASE
+            </div>
 
             {/* Headline */}
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
               Topluluğumuzun <br className="hidden sm:inline" />
               ürettiği oyunları keşfet.
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream/80 sm:text-base">
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
               Yarışmalarda, game jam'lerde ve topluluk etkinliklerinde geliştirilen en iyi oyunları
               burada bulabilirsin.
             </p>
 
             {/* Action Buttons */}
-            <div className="mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
               <button
                 type="button"
                 onClick={scrollToGames}
-                className="inline-flex items-center gap-2 rounded-xl bg-cream px-6 py-3 text-sm font-bold text-[#131127] shadow-lg transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-2 rounded-xl bg-cream px-6 py-3 text-sm font-bold text-[#131127] shadow-lg shadow-black/10 transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Oyunları Keşfet</span>
                 <ArrowRight className="h-4 w-4" />
@@ -650,7 +631,7 @@ function ProjelerShowcasePage() {
                 Anladım
               </button>
               <a
-                href="https://discord.gg/logd"
+                href="https://discord.gg/per2RTmmP"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-xl bg-navy px-4 py-2 text-xs font-bold text-cream hover:opacity-90"

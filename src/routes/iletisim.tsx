@@ -1,14 +1,25 @@
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { MessageSquare, ArrowRight, Send, CheckCircle2, ChevronDown } from "lucide-react";
+import {
+  ArrowRight,
+  Send,
+  CheckCircle2,
+  ChevronDown,
+  Mail,
+  Copy,
+  Check,
+  ExternalLink,
+} from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import heroBg from "@/assets/hero-bg.png.asset.json";
+import { useI18n } from "@/lib/i18n";
+
+const TARGET_CONTACT_EMAIL = "Business@logddev.com";
 
 export const Route = createFileRoute("/iletisim")({
   head: () => ({
     meta: [
-      { title: "İletişim | LOGD - Liseler Oyun Geliştiricileri Derneği" },
+      { title: "İletişim | LOGD - Liseli Oyun Geliştiricileri Derneği" },
       {
         name: "description",
         content:
@@ -26,40 +37,13 @@ export const Route = createFileRoute("/iletisim")({
   component: IletisimPage,
 });
 
-interface FaqItem {
-  id: string;
-  question: string;
-  answer: string;
-}
-
-const FAQS: FaqItem[] = [
-  {
-    id: "uye-olma",
-    question: "LOGD'ye nasıl üye olabilirim?",
-    answer:
-      "Topluluğumuza katılmak çok kolay! İletişim formu üzerinden veya Discord sunucumuzdan ekibimizle iletişime geçerek üyelik sürecini hemen başlatabilirsiniz.",
-  },
-  {
-    id: "etkinlik-haber",
-    question: "Etkinliklerden nasıl haberdar olabilirim?",
-    answer:
-      "Etkinlikler sayfamızı takip edebilir veya bültenimize abone olarak tüm duyuruları e-posta adresinize anında alabilirsiniz.",
-  },
-  {
-    id: "proje-katki",
-    question: "Projelerimize nasıl katkı sağlayabilirim?",
-    answer:
-      "GitHub organizasyonumuzu ziyaret edebilir veya Discord sunucumuzda proje ekipleriyle iletişime geçebilirsiniz.",
-  },
-  {
-    id: "is-birligi",
-    question: "İş birliği yapmak istiyorum, ne yapmalıyım?",
-    answer:
-      "İş birliği ve sponsorluk talepleriniz için iletişim formu veya e-posta üzerinden doğrudan bizimle iletişime geçebilirsiniz.",
-  },
-];
-
 function IletisimPage() {
+  const { t } = useI18n();
+
+  useEffect(() => {
+    document.title = t("contact.pageTitle");
+  }, [t]);
+
   // Contact Form State
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -67,25 +51,33 @@ function IletisimPage() {
   const [message, setMessage] = useState("");
   const [kvkkAccepted, setKvkkAccepted] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
   // Newsletter State
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSuccess, setNewsletterSuccess] = useState(false);
 
-  // FAQ Accordion State
-  const [openFaq, setOpenFaq] = useState<Record<string, boolean>>({});
-
-  const toggleFaq = (id: string) => {
-    setOpenFaq((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const getMailtoUrl = () => {
+    const mailSubject = `[LOGD İletişim] ${subject || "İletişim Talebi"} - ${name}`;
+    const mailBody = `Ad Soyad: ${name}\nE-posta: ${email}\nKonu: ${subject}\n\nMesaj:\n${message}\n\n---\nBu mesaj https://logd.org.tr iletişim formu üzerinden gönderilmektedir.`;
+    return `mailto:${TARGET_CONTACT_EMAIL}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
   };
 
   const handleContactSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message || !kvkkAccepted) return;
+
+    // Open user's default email client pre-filled to Business@logddev.com
+    const mailtoUrl = getMailtoUrl();
+    window.location.href = mailtoUrl;
+
     setFormSubmitted(true);
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(TARGET_CONTACT_EMAIL);
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
   };
 
   const handleNewsletterSubmit = (e: FormEvent) => {
@@ -96,61 +88,37 @@ function IletisimPage() {
 
   return (
     <div className="min-h-screen bg-[#fafafc] text-foreground antialiased selection:bg-sand/30 selection:text-navy">
-      {/* Header with active 'İletişim' */}
-      <Header activeNav="İletişim" />
+      {/* Header with active 'contact' */}
+      <Header activeNav="contact" />
 
       {/* Hero Section */}
-      <section className="page-hero relative bg-navy-deep text-cream">
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-            type="image/webp"
-          />
-          <source srcSet={heroBg.url} type="image/webp" />
-          <img
-            src={heroBg.url}
-            alt=""
-            aria-hidden="true"
-            width={1774}
-            height={887}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-right"
-          />
-        </picture>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent" />
-
-        <div className="relative z-10 mx-auto max-w-[1240px] px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
+      <section className="relative bg-navy-deep text-cream">
+        <div className="relative mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="mb-5 flex items-center gap-2 text-xs font-medium text-cream/70"
+            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
           >
             <a href="/" className="transition-colors hover:text-cream">
-              Ana Sayfa
+              {t("contact.breadcrumbsHome")}
             </a>
             <span className="text-cream/40">›</span>
-            <span className="text-cream">İletişim</span>
+            <span className="font-semibold text-cream">{t("contact.breadcrumbsCurrent")}</span>
           </nav>
 
-          <div className="max-w-2xl">
-            {/* Left Content */}
-            <div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-sand">
-                İLETİŞİM
-              </span>
+          <div className="mx-auto flex max-w-3xl flex-col items-center">
+            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+              {t("contact.heroEyebrow")}
+            </span>
 
-              <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
-                Bizimle iletişime
-                <br />
-                geçin.
-              </h1>
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              {t("contact.heroTitleLine1")} <br className="hidden sm:inline" />
+              {t("contact.heroTitleLine2")}
+            </h1>
 
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream/80 sm:text-base">
-                Sorularınız, iş birlikleri veya önerileriniz için ekibimiz her zaman sizinle.
-              </p>
-            </div>
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+              {t("contact.heroDescription")}
+            </p>
           </div>
         </div>
       </section>
@@ -163,37 +131,77 @@ function IletisimPage() {
             <div className="grid items-center gap-8">
               {/* Form Column */}
               <div>
-                <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                  Bize mesaj gönderin
-                </h2>
-                <p className="mt-1.5 text-xs text-muted-foreground sm:text-sm">
-                  Aşağıdaki formu doldurarak bize kolayca ulaşabilirsiniz.
-                </p>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+                      {t("contact.formTitle")}
+                    </h2>
+                    <p className="mt-1.5 text-xs text-muted-foreground sm:text-sm">
+                      {t("contact.formDesc")}
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center gap-2 self-start rounded-full border border-sand/40 bg-sand/10 px-3.5 py-1.5 text-xs font-medium text-navy sm:self-auto">
+                    <Mail className="h-3.5 w-3.5 text-sand" />
+                    <span>
+                      Alıcı:{" "}
+                      <strong className="font-semibold text-foreground">
+                        {TARGET_CONTACT_EMAIL}
+                      </strong>
+                    </span>
+                  </div>
+                </div>
 
                 {formSubmitted ? (
-                  <div className="mt-8 rounded-2xl border border-sand/40 bg-sand/15 p-6 text-center">
-                    <CheckCircle2 className="mx-auto h-10 w-10 text-navy" />
-                    <h3 className="mt-3 text-base font-bold text-foreground">
-                      Mesajınız başarıyla iletildi!
+                  <div className="mt-8 rounded-2xl border border-sand/40 bg-sand/15 p-6 text-center sm:p-8">
+                    <CheckCircle2 className="mx-auto h-12 w-12 text-navy" />
+                    <h3 className="mt-3 text-lg font-bold text-foreground">
+                      {t("contact.formSuccessTitle")}
                     </h3>
-                    <p className="mt-1.5 text-xs text-muted-foreground">
-                      Ekibimiz en kısa sürede sizinle e-posta adresiniz üzerinden iletişime
-                      geçecektir.
+                    <p className="mx-auto mt-2 max-w-lg text-xs leading-relaxed text-muted-foreground sm:text-sm">
+                      Mesajınız hazırlandı ve{" "}
+                      <strong className="font-semibold text-foreground">
+                        {TARGET_CONTACT_EMAIL}
+                      </strong>{" "}
+                      adresine iletilmek üzere e-posta istemcinize aktarıldı.
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormSubmitted(false);
-                        setName("");
-                        setEmail("");
-                        setSubject("");
-                        setMessage("");
-                        setKvkkAccepted(false);
-                      }}
-                      className="mt-5 rounded-xl bg-navy px-4 py-2 text-xs font-semibold text-cream hover:bg-navy/90"
-                    >
-                      Yeni Mesaj Gönder
-                    </button>
+
+                    <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                      <a
+                        href={getMailtoUrl()}
+                        className="inline-flex items-center gap-2 rounded-xl bg-navy px-5 py-2.5 text-xs font-semibold text-cream shadow transition-all hover:bg-navy/90 active:scale-95 sm:text-sm"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        <span>E-posta İstemcisinde Aç</span>
+                      </a>
+
+                      <button
+                        type="button"
+                        onClick={handleCopyEmail}
+                        className="inline-flex items-center gap-2 rounded-xl border border-border bg-background px-4 py-2.5 text-xs font-semibold text-foreground transition-all hover:bg-muted sm:text-sm"
+                      >
+                        {copiedEmail ? (
+                          <Check className="h-4 w-4 text-emerald-600" />
+                        ) : (
+                          <Copy className="h-4 w-4" />
+                        )}
+                        <span>{copiedEmail ? "Kopyalandı!" : "E-postayı Kopyala"}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormSubmitted(false);
+                          setName("");
+                          setEmail("");
+                          setSubject("");
+                          setMessage("");
+                          setKvkkAccepted(false);
+                        }}
+                        className="inline-flex items-center gap-2 rounded-xl border border-border/80 px-4 py-2.5 text-xs font-medium text-muted-foreground hover:text-foreground sm:text-sm"
+                      >
+                        {t("contact.formNewMessage")}
+                      </button>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleContactSubmit} className="mt-6 space-y-4">
@@ -201,27 +209,27 @@ function IletisimPage() {
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label className="block text-xs font-semibold text-foreground mb-1.5">
-                          Adınız Soyadınız
+                          {t("contact.fieldName")}
                         </label>
                         <input
                           type="text"
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
-                          placeholder="Adınızı soyadınızı yazın"
+                          placeholder={t("contact.placeholderName")}
                           className="h-11 w-full rounded-xl border border-border bg-background px-3.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-semibold text-foreground mb-1.5">
-                          E-posta Adresiniz
+                          {t("contact.fieldEmail")}
                         </label>
                         <input
                           type="email"
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          placeholder="ornek@mail.com"
+                          placeholder={t("contact.placeholderEmail")}
                           className="h-11 w-full rounded-xl border border-border bg-background px-3.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
                         />
                       </div>
@@ -230,7 +238,7 @@ function IletisimPage() {
                     {/* Row 2: Subject Dropdown */}
                     <div>
                       <label className="block text-xs font-semibold text-foreground mb-1.5">
-                        Konu
+                        {t("contact.fieldSubject")}
                       </label>
                       <div className="relative">
                         <select
@@ -240,13 +248,17 @@ function IletisimPage() {
                           className="h-11 w-full appearance-none rounded-xl border border-border bg-background px-3.5 text-xs sm:text-sm text-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
                         >
                           <option value="" disabled>
-                            Konu seçin
+                            {t("contact.selectSubject")}
                           </option>
-                          <option value="Genel Soru">Genel Soru & Bilgi Talebi</option>
-                          <option value="İş Birliği & Sponsorluk">İş Birliği & Sponsorluk</option>
-                          <option value="Topluluk & Üyelik">Topluluk & Üyelik Başvurusu</option>
-                          <option value="Etkinlikler & Game Jam">Etkinlikler & Game Jam</option>
-                          <option value="Diğer">Diğer Konular</option>
+                          <option value="Genel Soru">{t("contact.subjectGeneral")}</option>
+                          <option value="İş Birliği & Sponsorluk">
+                            {t("contact.subjectCollaboration")}
+                          </option>
+                          <option value="Topluluk & Üyelik">{t("contact.subjectCommunity")}</option>
+                          <option value="Etkinlikler & Game Jam">
+                            {t("contact.subjectEvents")}
+                          </option>
+                          <option value="Diğer">{t("contact.subjectOther")}</option>
                         </select>
                         <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       </div>
@@ -255,14 +267,14 @@ function IletisimPage() {
                     {/* Row 3: Message Textarea */}
                     <div>
                       <label className="block text-xs font-semibold text-foreground mb-1.5">
-                        Mesajınız
+                        {t("contact.fieldMessage")}
                       </label>
                       <textarea
                         required
                         rows={4}
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Mesajınızı yazın..."
+                        placeholder={t("contact.placeholderMessage")}
                         className="w-full rounded-xl border border-border bg-background p-3.5 text-xs sm:text-sm text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy"
                       />
                     </div>
@@ -282,9 +294,9 @@ function IletisimPage() {
                             href="/kvkk"
                             className="font-semibold text-foreground underline underline-offset-2 hover:text-navy"
                           >
-                            KVKK Aydınlatma Metni
+                            {t("contact.kvkkLink")}
                           </a>
-                          'ni okudum ve kabul ediyorum.
+                          {t("contact.kvkkSuffix")}
                         </span>
                       </label>
 
@@ -293,7 +305,7 @@ function IletisimPage() {
                         disabled={!kvkkAccepted}
                         className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-navy px-6 text-xs sm:text-sm font-semibold text-cream shadow transition-all hover:bg-navy/90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <span>Gönder</span>
+                        <span>{t("contact.sendButton")}</span>
                         <Send className="h-3.5 w-3.5" />
                       </button>
                     </div>
@@ -304,48 +316,7 @@ function IletisimPage() {
           </div>
         </section>
 
-        {/* SECTION: Sıkça Sorulan Sorular */}
-        <section className="mb-16 sm:mb-20">
-          <div className="mb-8">
-            <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-              Sıkça Sorulan Sorular
-            </h2>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 items-start">
-            {FAQS.map((faq) => {
-              const isOpen = !!openFaq[faq.id];
-              return (
-                <div
-                  key={faq.id}
-                  onClick={() => toggleFaq(faq.id)}
-                  className="group cursor-pointer rounded-2xl border border-border/70 bg-card p-5 shadow-sm transition-all duration-200 hover:border-navy/30 hover:shadow-md"
-                >
-                  <div className="flex w-full items-center justify-between gap-4 text-left">
-                    <h3 className="font-bold text-sm sm:text-base text-foreground select-none">
-                      {faq.question}
-                    </h3>
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-secondary/60 text-foreground transition-colors group-hover:bg-secondary">
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform duration-200 ${
-                          isOpen ? "rotate-180 text-navy" : "text-muted-foreground"
-                        }`}
-                      />
-                    </div>
-                  </div>
-
-                  {isOpen && (
-                    <p className="mt-3.5 border-t border-border/50 pt-3 text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                      {faq.answer}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* SECTION 4: Newsletter Box */}
+        {/* SECTION: Newsletter Box */}
         <section className="mb-8">
           <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#130f2f] p-6 text-cream shadow-2xl sm:p-9 lg:p-10">
             {/* Ambient background light */}
@@ -359,10 +330,10 @@ function IletisimPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold sm:text-xl text-cream">
-                    Gelişmelerden haberdar olun
+                    {t("contact.newsletterTitle")}
                   </h3>
                   <p className="mt-1 text-xs text-cream/75 sm:text-sm max-w-lg leading-relaxed">
-                    Etkinlikler, duyurular ve topluluk haberleri için bültenimize katılın.
+                    {t("contact.newsletterDesc")}
                   </p>
                 </div>
               </div>
@@ -372,7 +343,7 @@ function IletisimPage() {
                 {newsletterSuccess ? (
                   <div className="flex items-center gap-2 rounded-full border border-sand/40 bg-sand/15 px-5 py-2.5 text-xs font-semibold text-sand">
                     <CheckCircle2 className="h-4 w-4" />
-                    <span>Kaydınız başarıyla alındı! Teşekkürler.</span>
+                    <span>{t("contact.newsletterSuccess")}</span>
                   </div>
                 ) : (
                   <form
@@ -384,14 +355,14 @@ function IletisimPage() {
                       required
                       value={newsletterEmail}
                       onChange={(e) => setNewsletterEmail(e.target.value)}
-                      placeholder="E-posta adresiniz"
+                      placeholder={t("contact.newsletterPlaceholder")}
                       className="h-11 w-full rounded-full border border-white/20 bg-white px-4 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sand sm:w-64"
                     />
                     <button
                       type="submit"
                       className="inline-flex h-11 items-center justify-center gap-1.5 rounded-full bg-cream px-6 text-xs sm:text-sm font-bold text-[#130f2f] transition-all hover:bg-cream/90 active:scale-95"
                     >
-                      <span>Abone Ol</span>
+                      <span>{t("contact.newsletterButton")}</span>
                       <ArrowRight className="h-4 w-4" />
                     </button>
                   </form>

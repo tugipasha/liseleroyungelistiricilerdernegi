@@ -1,44 +1,37 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Linkedin,
-  Github,
-  Mail,
   Users,
   Code2,
   Palette,
   Calendar,
-  Sparkles,
   ArrowRight,
   School,
   HeartHandshake,
+  Search,
   CheckCircle2,
+  Mail,
+  GraduationCap,
 } from "lucide-react";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import heroBg from "@/assets/hero-bg.png.asset.json";
-
-import ahmetImg from "@/assets/images/team_ahmet_1788547015900.webp";
-import zeynepImg from "@/assets/images/team_zeynep_1788547038479.webp";
-import mertcanImg from "@/assets/images/team_mertcan_1788547060404.webp";
-import elifnurImg from "@/assets/images/team_elifnur_1788547075365.webp";
-import batuhanImg from "@/assets/images/team_batuhan_1788547091587.webp";
-import selinImg from "@/assets/images/team_selin_1788547116444.webp";
 
 export const Route = createFileRoute("/ekibimiz")({
   head: () => ({
     meta: [
-      { title: "Ekibimiz | LOGD - Liseler Oyun Geliştiricileri Derneği" },
+      {
+        title: "Topluluk Başkanlarımız & Ekibimiz | LOGD - Liseler Oyun Geliştiricileri Derneği",
+      },
       {
         name: "description",
         content:
-          "Liseler Oyun Geliştiricileri Derneği (LOGD) yönetim kurulu, çalışma kolları, mentorları ve gönüllü ekipleri.",
+          "Liseler Oyun Geliştiricileri Derneği (LOGD) okul temsilcileri, lise topluluk başkanları ve dernek çalışma komisyonları.",
       },
-      { property: "og:title", content: "Ekibimiz | LOGD" },
+      { property: "og:title", content: "Topluluk Başkanlarımız & Ekibimiz | LOGD" },
       {
         property: "og:description",
         content:
-          "Lise öğrencilerine oyun geliştirme vizyonu kazandıran çekirdek kadromuz ve komisyonlarımız.",
+          "Türkiye'nin dört bir yanındaki liselerde LOGD topluluklarını yöneten okul başkanlarımız ve koordinasyon ekiplerimiz.",
       },
       { property: "og:type", content: "website" },
     ],
@@ -46,101 +39,156 @@ export const Route = createFileRoute("/ekibimiz")({
   component: EkibimizPage,
 });
 
-interface TeamMember {
+interface SchoolPresident {
+  id: string;
   name: string;
-  role: string;
-  department: "Yönetim" | "Etkinlik & Jam" | "Yazılım & Motor" | "Sanat & Tasarım" | "İletişim";
   school: string;
-  bio: string;
-  image: string;
-  skills: string[];
-  linkedin: string;
-  github: string;
-  email: string;
+  role: string;
+  category: "Fen Liseleri" | "Anadolu Liseleri" | "Mesleki & Teknik" | "Diğer Liseler";
+  initials: string;
+  description?: string;
+  badge?: string;
 }
 
-const TEAM_MEMBERS: TeamMember[] = [
+const SCHOOL_PRESIDENTS: SchoolPresident[] = [
   {
-    name: "Ahmet Yılmaz",
-    role: "Topluluk Yöneticisi & Genel Koordinatör",
-    department: "Yönetim",
-    school: "İzmir Fen Lisesi Mezunu",
-    bio: "LOGD'nin kuruluşundan bu yana ulusal çaptaki lise temsilciliklerini koordine ediyor, dernek stratejisini ve kurumsal iş birliklerini yürütüyor.",
-    image: ahmetImg,
-    skills: ["Topluluk Yönetimi", "Proje Planlama", "Unity"],
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    email: "ahmet@logd.org.tr",
+    id: "aydin-fen",
+    name: "Yavuz Deniz",
+    school: "Aydın Fen Lisesi",
+    role: "Lise Topluluk Başkanı",
+    category: "Fen Liseleri",
+    initials: "YD",
+    description: "Aydın Fen Lisesi bünyesinde oyun geliştirme kulübü ve etkinlik koordinasyonu.",
+    badge: "Fen Lisesi Temsilcisi",
   },
   {
-    name: "Zeynep Kaya",
-    role: "Etkinlik & Game Jam Koordinatörü",
-    department: "Etkinlik & Jam",
-    school: "Kadıköy Anadolu Lisesi",
-    bio: "Global Game Jam NEXT, Anatolia Game Jam ve çevrim içi hackathon maratonlarının takvimini ve jüri süreçlerini organize ediyor.",
-    image: zeynepImg,
-    skills: ["Game Jam", "Etkinlik Yönetimi", "Mentorluk"],
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    email: "zeynep@logd.org.tr",
+    id: "bahcesehir-fentek",
+    name: "Poyraz",
+    school: "Bahçeşehir Fentek",
+    role: "Lise Topluluk Başkanı",
+    category: "Fen Liseleri",
+    initials: "P",
+    description: "Bahçeşehir Fen ve Teknoloji Lisesi robotik & oyun motoru topluluk koordinasyonu.",
+    badge: "FenTek Temsilcisi",
   },
   {
-    name: "Mert Can Öz",
-    role: "Teknik Lider & Oyun Motorları Direktörü",
-    department: "Yazılım & Motor",
-    school: "Ankara Fen Lisesi",
-    bio: "Unreal Engine 5, Godot ve C# mimarisi üzerine eğitim modülleri hazırlıyor; öğrenci projelerinin kod standartlarını denetliyor.",
-    image: mertcanImg,
-    skills: ["Unreal Engine", "Godot", "C#", "C++"],
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    email: "mertcan@logd.org.tr",
-  },
-  {
-    name: "Elif Nur Demir",
-    role: "İletişim & Sosyal Medya Sorumlusu",
-    department: "İletişim",
-    school: "Kabataş Erkek Lisesi",
-    bio: "Derneğin kamuoyu duyuruları, basın bültenleri, Discord topluluk moderasyonu ve sosyal medya stratejisini yönetiyor.",
-    image: elifnurImg,
-    skills: ["İletişim", "Basın İlişkileri", "İçerik Stratejisi"],
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    email: "elif@logd.org.tr",
-  },
-  {
-    name: "Batuhan Arslan",
-    role: "Eğitim & Mentorluk Koordinatörü",
-    department: "Yazılım & Motor",
+    id: "bornova-anadolu",
+    name: "Efkan Şenol",
     school: "Bornova Anadolu Lisesi",
-    bio: "Sektör profesyonelleri ile lise öğrencilerini buluşturan mentorluk programını ve sıfırdan oyun geliştirme atölyelerini koordine ediyor.",
-    image: batuhanImg,
-    skills: ["Müfredat Tasarımı", "Unity", "Shader Grafikleri"],
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    email: "batuhan@logd.org.tr",
+    role: "Lise Topluluk Başkanı",
+    category: "Anadolu Liseleri",
+    initials: "EŞ",
+    description: "BAL Oyun Geliştirme Kulübü ve okul içi Game Jam maratonları liderliği.",
+    badge: "BAL Temsilcisi",
   },
   {
-    name: "Selin Aydın",
-    role: "Tasarım & Sanat Kolu Lideri",
-    department: "Sanat & Tasarım",
-    school: "Beşiktaş Atatürk Anadolu Lisesi",
-    bio: "Pixel Art, Blender 3D modelleme atölyelerini yönetiyor; LOGD görsel kimliğini ve açık kaynak oyun varlık kütüphanesini kurguluyor.",
-    image: selinImg,
-    skills: ["Pixel Art", "Blender 3D", "UI/UX Tasarımı"],
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
-    email: "selin@logd.org.tr",
+    id: "cihat-kora",
+    name: "Furkan Yurt",
+    school: "Cihat Kora Anadolu Lisesi",
+    role: "Lise Topluluk Başkanı",
+    category: "Anadolu Liseleri",
+    initials: "FY",
+    description: "Cihat Kora AL bünyesinde yazılım ve oyun tasarımı atölyeleri organizasyonu.",
+    badge: "CKAL Temsilcisi",
+  },
+  {
+    id: "ifl",
+    name: "Deniz Ak",
+    school: "İzmir Fen Lisesi (İFL)",
+    role: "Lise Topluluk Başkanı",
+    category: "Fen Liseleri",
+    initials: "DA",
+    description: "İFL Oyun ve Algoritma Kulübü koordinasyonu, teknik maraton liderliği.",
+    badge: "İFL Temsilcisi",
+  },
+  {
+    id: "izmir-ataturk",
+    name: "Mehmet Kaan Cengiz",
+    school: "İzmir Atatürk Lisesi",
+    role: "Lise Topluluk Başkanı",
+    category: "Anadolu Liseleri",
+    initials: "MKC",
+    description: "İAL Oyun Geliştirme Topluluğu ve kültürlerarası lise hackathon çalışmaları.",
+    badge: "İAL Temsilcisi",
+  },
+  {
+    id: "izmir-kiz",
+    name: "Cem Bal",
+    school: "İzmir Kız Lisesi",
+    role: "Lise Topluluk Başkanı",
+    category: "Anadolu Liseleri",
+    initials: "CB",
+    description: "İzmir Kız Lisesi teknoloji ve oyun geliştirme komisyonu başkanlığı.",
+    badge: "İKL Temsilcisi",
+  },
+  {
+    id: "karsiyaka-anadolu",
+    name: "Görkem",
+    school: "Karşıyaka Anadolu Lisesi",
+    role: "Lise Topluluk Başkanı",
+    category: "Anadolu Liseleri",
+    initials: "G",
+    description: "Karşıyaka AL oyun geliştirme atölyeleri ve yerel etkinlik organizasyonu.",
+    badge: "KAL Temsilcisi",
+  },
+  {
+    id: "mazhar-zorlu",
+    name: "Akif Ersoy Armağan",
+    school: "Mazhar Zorlu MTAL",
+    role: "Lise Topluluk Başkanı",
+    category: "Mesleki & Teknik",
+    initials: "AEA",
+    description: "Mazhar Zorlu Mesleki ve Teknik AL bilişim/yazılım kulüp liderliği.",
+    badge: "MTAL Temsilcisi",
+  },
+  {
+    id: "numtal",
+    name: "Ata Barmanbek",
+    school: "NUMTAL",
+    role: "Lise Topluluk Başkanı",
+    category: "Mesleki & Teknik",
+    initials: "AB",
+    description: "NUMTAL bünyesinde uygulamalı oyun geliştirme ve dijital sanat projeleri.",
+    badge: "NUMTAL Temsilcisi",
+  },
+  {
+    id: "sakalott",
+    name: "Buse",
+    school: "ŞAKALOTT",
+    role: "Lise Topluluk Başkanı",
+    category: "Diğer Liseler",
+    initials: "B",
+    description: "ŞAKALOTT okul temsilciliği ve genç geliştirici mentorluk koordinasyonu.",
+    badge: "Okul Temsilcisi",
+  },
+  {
+    id: "uhcal",
+    name: "Ela",
+    school: "UHÇAL",
+    role: "Lise Topluluk Başkanı",
+    category: "Diğer Liseler",
+    initials: "E",
+    description: "UHÇAL oyun tasarımı ve görsel sanatlar topluluk çalışmaları.",
+    badge: "Okul Temsilcisi",
+  },
+  {
+    id: "yunus-emre",
+    name: "Kağan Akyürek",
+    school: "Yunus Emre Anadolu Lisesi",
+    role: "Lise Topluluk Başkanı",
+    category: "Anadolu Liseleri",
+    initials: "KA",
+    description: "Yunus Emre AL yazılım ve oyun geliştirme kulüp liderliği.",
+    badge: "YEAL Temsilcisi",
   },
 ];
 
-const DEPARTMENTS = [
+const CATEGORIES = [
   "Tümü",
-  "Yönetim",
-  "Etkinlik & Jam",
-  "Yazılım & Motor",
-  "Sanat & Tasarım",
-  "İletişim",
+  "Fen Liseleri",
+  "Anadolu Liseleri",
+  "Mesleki & Teknik",
+  "Diğer Liseler",
 ] as const;
 
 const COMMITTEES = [
@@ -171,12 +219,21 @@ const COMMITTEES = [
 ];
 
 function EkibimizPage() {
-  const [selectedDept, setSelectedDept] = useState<string>("Tümü");
+  const [selectedCategory, setSelectedCategory] = useState<string>("Tümü");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredMembers =
-    selectedDept === "Tümü"
-      ? TEAM_MEMBERS
-      : TEAM_MEMBERS.filter((m) => m.department === selectedDept);
+  const filteredPresidents = useMemo(() => {
+    return SCHOOL_PRESIDENTS.filter((item) => {
+      const matchesCategory = selectedCategory === "Tümü" || item.category === selectedCategory;
+      const query = searchQuery.trim().toLowerCase();
+      const matchesSearch =
+        !query ||
+        item.name.toLowerCase().includes(query) ||
+        item.school.toLowerCase().includes(query) ||
+        (item.badge && item.badge.toLowerCase().includes(query));
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
 
   return (
     <div className="min-h-screen bg-[#fafafc] text-foreground antialiased selection:bg-sand/30 selection:text-navy">
@@ -184,176 +241,170 @@ function EkibimizPage() {
       <Header activeNav="Ekibimiz" />
 
       {/* Hero Section */}
-      <section className="page-hero relative bg-navy-deep text-cream">
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-            type="image/webp"
-          />
-          <source srcSet={heroBg.url} type="image/webp" />
-          <img
-            src={heroBg.url}
-            alt=""
-            aria-hidden="true"
-            width={1774}
-            height={887}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-right"
-          />
-        </picture>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent" />
-
-        <div className="relative z-10 mx-auto max-w-[1240px] px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
+      <section className="relative bg-navy-deep text-cream">
+        <div className="relative mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
           {/* Breadcrumb */}
           <nav
             aria-label="Breadcrumb"
-            className="mb-5 flex items-center gap-2 text-xs font-medium text-cream/70"
+            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
           >
             <a href="/" className="transition-colors hover:text-cream">
               Ana Sayfa
             </a>
             <span className="text-cream/40">›</span>
-            <span className="text-cream">Ekibimiz</span>
+            <span className="font-semibold text-cream">Ekibimiz & Topluluk Başkanları</span>
           </nav>
 
-          <div className="max-w-2xl">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-sand">EKİBİMİZ</span>
+          <div className="mx-auto flex max-w-3xl flex-col items-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+              <GraduationCap className="h-3.5 w-3.5" />
+              LİSE TEMSİLCİLİKLERİ & EKİBİMİZ
+            </span>
 
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
-              Topluluğumuzu birlikte büyüten
-              <br />
-              çekirdek kadromuz.
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              Lise Topluluk Başkanlarımız <br className="hidden sm:inline" />
+              ve Çalışma Kollarımız
             </h1>
 
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream/80 sm:text-base">
-              Tutkulu, üretken ve lise öğrencilerinden oluşan ekibimizle Türkiye genelinde genç oyun
-              geliştiricilere rehberlik ediyor, birlikte üretiyoruz.
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+              Türkiye genelindeki liselerde LOGD vizyonunu yaşatan, okul kulüplerini ve Game Jam
+              ekiplerini koordine eden okul başkanlarımızla birlikte üretiyoruz.
             </p>
           </div>
         </div>
       </section>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-[1240px] px-6 py-14 sm:py-20">
-        {/* Department Filters */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/80 pb-6">
+      <main className="mx-auto max-w-[1240px] px-6 py-12 sm:py-16">
+        {/* Controls Bar */}
+        <div className="flex flex-col gap-5 border-b border-border/80 pb-6 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-              Çekirdek Kadro ve Liderler
+              Okul Temsilcileri ve Topluluk Başkanları
             </h2>
             <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
-              Çalışma alanlarına göre ekip üyelerimizi listeleyebilirsiniz.
+              Liselerimizdeki aktif temsilcilerimizi okul adına veya başkan ismine göre
+              listeleyebilirsiniz.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            {DEPARTMENTS.map((dept) => (
-              <button
-                key={dept}
-                type="button"
-                onClick={() => setSelectedDept(dept)}
-                className={`rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-all ${
-                  selectedDept === dept
-                    ? "bg-navy-deep text-cream shadow-sm"
-                    : "border border-border bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
-                }`}
-              >
-                {dept}
-              </button>
-            ))}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            {/* Search Input */}
+            <div className="relative">
+              <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Okul veya başkan ara..."
+                className="h-9.5 w-full rounded-xl border border-border bg-card pl-9 pr-4 text-xs text-foreground placeholder:text-muted-foreground focus:border-navy focus:outline-none focus:ring-1 focus:ring-navy sm:w-56"
+              />
+            </div>
+
+            {/* Filter Buttons */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {CATEGORIES.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-all ${
+                    selectedCategory === category
+                      ? "bg-navy-deep text-cream shadow-sm"
+                      : "border border-border bg-card text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Team Members Grid */}
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredMembers.map((member) => (
-            <div
-              key={member.name}
-              className="flex flex-col justify-between rounded-2xl border border-border/80 bg-card p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-border hover:shadow-md"
+        {/* School Presidents Grid (Clean & Photo-Free) */}
+        {filteredPresidents.length === 0 ? (
+          <div className="mt-12 rounded-2xl border border-dashed border-border p-12 text-center">
+            <School className="mx-auto h-10 w-10 text-muted-foreground/60" />
+            <h3 className="mt-3 text-base font-bold text-foreground">Sonuç bulunamadı</h3>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Arama kriterlerinize uygun okul veya başkan kaydı bulunamadı.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery("");
+                setSelectedCategory("Tümü");
+              }}
+              className="mt-4 rounded-xl bg-navy px-4 py-2 text-xs font-semibold text-cream"
             >
-              <div>
-                {/* Avatar & Header */}
-                <div className="flex items-start gap-4">
-                  <div className="relative h-18 w-18 shrink-0 overflow-hidden rounded-2xl ring-2 ring-border/80">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      referrerPolicy="no-referrer"
-                      className="h-full w-full object-cover"
-                    />
+              Filtreleri Temizle
+            </button>
+          </div>
+        ) : (
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+            {filteredPresidents.map((pres) => (
+              <div
+                key={pres.id}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card p-5.5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-navy/30 hover:shadow-md"
+              >
+                <div>
+                  {/* Top Header: Badge & Monogram */}
+                  <div className="flex items-start justify-between gap-3">
+                    {/* Monogram Avatar */}
+                    <div className="flex h-13 w-13 shrink-0 items-center justify-center rounded-2xl border border-navy/15 bg-gradient-to-br from-[#130f2f] to-[#1e1747] text-sm font-extrabold tracking-wider text-cream shadow-sm">
+                      <span>{pres.initials}</span>
+                    </div>
+
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="inline-flex items-center gap-1 rounded-full border border-sand/40 bg-sand/10 px-2.5 py-0.5 text-[11px] font-semibold text-navy">
+                        <CheckCircle2 className="h-3 w-3 text-sand" />
+                        <span>{pres.badge || "Temsilci"}</span>
+                      </span>
+                      <span className="text-[10px] font-medium text-muted-foreground">
+                        {pres.category}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="space-y-1">
-                    <span className="inline-block rounded-md bg-secondary px-2 py-0.5 text-[10px] font-bold text-navy">
-                      {member.department}
-                    </span>
-                    <h3 className="text-base font-bold text-foreground sm:text-lg">
-                      {member.name}
+                  {/* Name & Role */}
+                  <div className="mt-4">
+                    <h3 className="text-lg font-bold tracking-tight text-foreground transition-colors group-hover:text-navy">
+                      {pres.name}
                     </h3>
-                    <p className="text-xs font-medium text-muted-foreground">{member.role}</p>
+                    <p className="text-xs font-semibold text-navy/80">{pres.role}</p>
                   </div>
+
+                  {/* School Badge Box */}
+                  <div className="mt-3.5 flex items-center gap-2 rounded-xl border border-border/60 bg-muted/40 px-3 py-2 text-xs font-medium text-foreground">
+                    <School className="h-4 w-4 shrink-0 text-navy" />
+                    <span className="font-semibold text-foreground/90">{pres.school}</span>
+                  </div>
+
+                  {/* Brief description */}
+                  {pres.description && (
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                      {pres.description}
+                    </p>
+                  )}
                 </div>
 
-                {/* School */}
-                <div className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <School className="h-3.5 w-3.5 shrink-0 text-sand" />
-                  <span>{member.school}</span>
-                </div>
-
-                {/* Bio */}
-                <p className="mt-3 text-xs leading-relaxed text-muted-foreground/90 sm:text-sm">
-                  {member.bio}
-                </p>
-
-                {/* Skills tags */}
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {member.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md border border-border/60 bg-muted/40 px-2 py-0.5 text-[11px] font-medium text-foreground/80"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Social Links Footer */}
-              <div className="mt-6 flex items-center justify-between border-t border-border/60 pt-4 text-xs">
-                <span className="text-muted-foreground">İletişim:</span>
-                <div className="flex items-center gap-3 text-muted-foreground">
+                {/* Card Footer: Official Liaison info */}
+                <div className="mt-5 flex items-center justify-between border-t border-border/60 pt-3.5 text-xs">
+                  <span className="text-[11px] font-medium text-muted-foreground">
+                    LOGD Temsilciliği
+                  </span>
                   <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${member.name} LinkedIn`}
-                    className="transition-colors hover:text-foreground"
+                    href="mailto:Business@logddev.com"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-navy transition-colors hover:text-navy/80"
                   >
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${member.name} GitHub`}
-                    className="transition-colors hover:text-foreground"
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
-                  <a
-                    href={`mailto:${member.email}`}
-                    aria-label={`${member.name} E-posta`}
-                    className="transition-colors hover:text-foreground"
-                  >
-                    <Mail className="h-4 w-4" />
+                    <Mail className="h-3.5 w-3.5" />
+                    <span>İletişime Geç</span>
                   </a>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* SECTION: Çalışma Kolları & Komisyonlar */}
         <section className="mt-20 sm:mt-28">
@@ -376,7 +427,7 @@ function EkibimizPage() {
               return (
                 <div
                   key={com.title}
-                  className="rounded-2xl border border-border/80 bg-card p-6 shadow-sm"
+                  className="rounded-2xl border border-border/80 bg-card p-6 shadow-sm transition-all hover:border-border hover:shadow-md"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary text-navy">
                     <IconComponent className="h-5 w-5" />
@@ -393,20 +444,20 @@ function EkibimizPage() {
           </div>
         </section>
 
-        {/* SECTION: Gönüllü Ol / Ekibe Katıl CTA */}
+        {/* SECTION: Okulunda LOGD Temsilciliği Başlat CTA */}
         <section className="mt-16 sm:mt-24">
           <div className="relative overflow-hidden rounded-3xl bg-navy-deep p-8 text-cream shadow-xl sm:p-12">
             <div className="relative z-10 max-w-2xl">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-sand/30 bg-sand/15 px-3 py-1 text-xs font-semibold text-sand">
                 <HeartHandshake className="h-3.5 w-3.5" />
-                Gönüllülük & Başvuru
+                Okul Temsilciliği & Başvuru
               </span>
               <h2 className="mt-4 text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
-                Sen de ekibimizin bir parçası olmak ister misin?
+                Kendi okulunda LOGD topluluk başkanlığı başlatmak ister misin?
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-cream/80 sm:text-base">
-                Liseliysen ve Game Jam organizasyonlarında, teknik atölyelerde veya grafik/tasarım
-                kollarımızda aktif sorumluluk almak istiyorsan aramıza katıl!
+                Okulundaki oyun tutkunu arkadaşlarınla bir kulüp kurmak, Game Jam maratonlarına
+                katılmak ve LOGD okul temsilcisi ağına dahil olmak için bizimle iletişime geç!
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -414,11 +465,11 @@ function EkibimizPage() {
                   href="/iletisim"
                   className="inline-flex h-11 items-center gap-2 rounded-xl bg-cream px-6 text-sm font-bold text-navy shadow-sm transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>Gönüllü Başvurusu Yap</span>
+                  <span>Temsilcilik Başvurusu Yap</span>
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://discord.gg"
+                  href="https://discord.gg/per2RTmmP"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex h-11 items-center gap-2 rounded-xl border border-cream/25 bg-white/5 px-6 text-sm font-semibold text-cream backdrop-blur-sm transition-colors hover:bg-cream/10"

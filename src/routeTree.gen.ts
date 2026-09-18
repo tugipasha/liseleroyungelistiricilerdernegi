@@ -11,16 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as CerezPolitikasiRouteImport } from './routes/cerez-politikasi'
 import { Route as CerezlerRouteImport } from './routes/cerezler'
 import { Route as EkibimizRouteImport } from './routes/ekibimiz'
 import { Route as EtkinliklerRouteImport } from './routes/etkinlikler'
 import { Route as GizlilikRouteImport } from './routes/gizlilik'
-import { Route as GizlilikPolitikasiRouteImport } from './routes/gizlilik-politikasi'
 import { Route as HaberlerRouteImport } from './routes/haberler'
 import { Route as HakkimizdaRouteImport } from './routes/hakkimizda'
 import { Route as IletisimRouteImport } from './routes/iletisim'
-import { Route as KvkkRouteImport } from './routes/kvkk'
 import { Route as OyunlarRouteImport } from './routes/oyunlar'
 import { Route as ProjelerRouteImport } from './routes/projeler'
 import { Route as WpAdminLogdRouteImport } from './routes/wp-admin-logd'
@@ -34,11 +31,6 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CerezPolitikasiRoute = CerezPolitikasiRouteImport.update({
-  id: '/cerez-politikasi',
-  path: '/cerez-politikasi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CerezlerRoute = CerezlerRouteImport.update({
@@ -61,11 +53,6 @@ const GizlilikRoute = GizlilikRouteImport.update({
   path: '/gizlilik',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GizlilikPolitikasiRoute = GizlilikPolitikasiRouteImport.update({
-  id: '/gizlilik-politikasi',
-  path: '/gizlilik-politikasi',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const HaberlerRoute = HaberlerRouteImport.update({
   id: '/haberler',
   path: '/haberler',
@@ -79,11 +66,6 @@ const HakkimizdaRoute = HakkimizdaRouteImport.update({
 const IletisimRoute = IletisimRouteImport.update({
   id: '/iletisim',
   path: '/iletisim',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KvkkRoute = KvkkRouteImport.update({
-  id: '/kvkk',
-  path: '/kvkk',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OyunlarRoute = OyunlarRouteImport.update({
@@ -110,16 +92,13 @@ const YonetimLogd2025Route = YonetimLogd2025RouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/cerez-politikasi': typeof CerezPolitikasiRoute
   '/cerezler': typeof CerezlerRoute
   '/ekibimiz': typeof EkibimizRoute
   '/etkinlikler': typeof EtkinliklerRoute
   '/gizlilik': typeof GizlilikRoute
-  '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/haberler': typeof HaberlerRoute
   '/hakkimizda': typeof HakkimizdaRoute
   '/iletisim': typeof IletisimRoute
-  '/kvkk': typeof KvkkRoute
   '/oyunlar': typeof OyunlarRoute
   '/projeler': typeof ProjelerRoute
   '/wp-admin-logd': typeof WpAdminLogdRoute
@@ -128,16 +107,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/cerez-politikasi': typeof CerezPolitikasiRoute
   '/cerezler': typeof CerezlerRoute
   '/ekibimiz': typeof EkibimizRoute
   '/etkinlikler': typeof EtkinliklerRoute
   '/gizlilik': typeof GizlilikRoute
-  '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/haberler': typeof HaberlerRoute
   '/hakkimizda': typeof HakkimizdaRoute
   '/iletisim': typeof IletisimRoute
-  '/kvkk': typeof KvkkRoute
   '/oyunlar': typeof OyunlarRoute
   '/projeler': typeof ProjelerRoute
   '/wp-admin-logd': typeof WpAdminLogdRoute
@@ -147,16 +123,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/cerez-politikasi': typeof CerezPolitikasiRoute
   '/cerezler': typeof CerezlerRoute
   '/ekibimiz': typeof EkibimizRoute
   '/etkinlikler': typeof EtkinliklerRoute
   '/gizlilik': typeof GizlilikRoute
-  '/gizlilik-politikasi': typeof GizlilikPolitikasiRoute
   '/haberler': typeof HaberlerRoute
   '/hakkimizda': typeof HakkimizdaRoute
   '/iletisim': typeof IletisimRoute
-  '/kvkk': typeof KvkkRoute
   '/oyunlar': typeof OyunlarRoute
   '/projeler': typeof ProjelerRoute
   '/wp-admin-logd': typeof WpAdminLogdRoute
@@ -167,16 +140,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/cerez-politikasi'
     | '/cerezler'
     | '/ekibimiz'
     | '/etkinlikler'
     | '/gizlilik'
-    | '/gizlilik-politikasi'
     | '/haberler'
     | '/hakkimizda'
     | '/iletisim'
-    | '/kvkk'
     | '/oyunlar'
     | '/projeler'
     | '/wp-admin-logd'
@@ -185,16 +155,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/cerez-politikasi'
     | '/cerezler'
     | '/ekibimiz'
     | '/etkinlikler'
     | '/gizlilik'
-    | '/gizlilik-politikasi'
     | '/haberler'
     | '/hakkimizda'
     | '/iletisim'
-    | '/kvkk'
     | '/oyunlar'
     | '/projeler'
     | '/wp-admin-logd'
@@ -203,16 +170,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/cerez-politikasi'
     | '/cerezler'
     | '/ekibimiz'
     | '/etkinlikler'
     | '/gizlilik'
-    | '/gizlilik-politikasi'
     | '/haberler'
     | '/hakkimizda'
     | '/iletisim'
-    | '/kvkk'
     | '/oyunlar'
     | '/projeler'
     | '/wp-admin-logd'
@@ -222,16 +186,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  CerezPolitikasiRoute: typeof CerezPolitikasiRoute
   CerezlerRoute: typeof CerezlerRoute
   EkibimizRoute: typeof EkibimizRoute
   EtkinliklerRoute: typeof EtkinliklerRoute
   GizlilikRoute: typeof GizlilikRoute
-  GizlilikPolitikasiRoute: typeof GizlilikPolitikasiRoute
   HaberlerRoute: typeof HaberlerRoute
   HakkimizdaRoute: typeof HakkimizdaRoute
   IletisimRoute: typeof IletisimRoute
-  KvkkRoute: typeof KvkkRoute
   OyunlarRoute: typeof OyunlarRoute
   ProjelerRoute: typeof ProjelerRoute
   WpAdminLogdRoute: typeof WpAdminLogdRoute
@@ -252,13 +213,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cerez-politikasi': {
-      id: '/cerez-politikasi'
-      path: '/cerez-politikasi'
-      fullPath: '/cerez-politikasi'
-      preLoaderRoute: typeof CerezPolitikasiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cerezler': {
@@ -289,13 +243,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GizlilikRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/gizlilik-politikasi': {
-      id: '/gizlilik-politikasi'
-      path: '/gizlilik-politikasi'
-      fullPath: '/gizlilik-politikasi'
-      preLoaderRoute: typeof GizlilikPolitikasiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/haberler': {
       id: '/haberler'
       path: '/haberler'
@@ -315,13 +262,6 @@ declare module '@tanstack/react-router' {
       path: '/iletisim'
       fullPath: '/iletisim'
       preLoaderRoute: typeof IletisimRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/kvkk': {
-      id: '/kvkk'
-      path: '/kvkk'
-      fullPath: '/kvkk'
-      preLoaderRoute: typeof KvkkRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/oyunlar': {
@@ -358,16 +298,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  CerezPolitikasiRoute: CerezPolitikasiRoute,
   CerezlerRoute: CerezlerRoute,
   EkibimizRoute: EkibimizRoute,
   EtkinliklerRoute: EtkinliklerRoute,
   GizlilikRoute: GizlilikRoute,
-  GizlilikPolitikasiRoute: GizlilikPolitikasiRoute,
   HaberlerRoute: HaberlerRoute,
   HakkimizdaRoute: HakkimizdaRoute,
   IletisimRoute: IletisimRoute,
-  KvkkRoute: KvkkRoute,
   OyunlarRoute: OyunlarRoute,
   ProjelerRoute: ProjelerRoute,
   WpAdminLogdRoute: WpAdminLogdRoute,

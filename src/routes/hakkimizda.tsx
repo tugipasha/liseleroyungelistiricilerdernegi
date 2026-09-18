@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -5,22 +6,18 @@ import {
   Eye,
   Heart,
   Users,
-  Gamepad2,
   Flag,
   Rocket,
   Trophy,
   Star,
   Sprout,
   Globe,
-  Linkedin,
-  Github,
-  Mail,
 } from "lucide-react";
 
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
+import { useI18n } from "@/lib/i18n";
 import logo from "@/assets/logd-logo.png.asset.json";
-import heroBg from "@/assets/hero-bg.png.asset.json";
 
 import {
   GamesForChangeLogo,
@@ -52,60 +49,6 @@ export const Route = createFileRoute("/hakkimizda")({
   component: HakkimizdaPage,
 });
 
-const TIMELINE = [
-  {
-    icon: Flag,
-    year: "2025",
-    title: "Kuruluş ve İlk Buluşma",
-    description:
-      "Kasım 2025'te LOGD fikri doğdu; liseli oyun geliştiricileri tek çatı altında toplayan ilk adımlar atıldı.",
-  },
-  {
-    icon: Users,
-    year: "2026 (Erken Dönem)",
-    title: "Etkinlikler ve Eğitimler",
-    description:
-      "Game jam'ler, mentorluklar ve atölye çalışmalarıyla topluluk yapımızı güçlendirdik ve üye ağımızı genişlettik.",
-  },
-  {
-    icon: Rocket,
-    year: "2026 (Günümüz)",
-    title: "Sektörel Üretim",
-    description:
-      "Genç yeteneklerin fikirlerini sektörel standartlarda projelere dönüştürmelerini desteklemeyi sürdürüyoruz.",
-  },
-  {
-    icon: Trophy,
-    year: "Gelecek",
-    title: "Ulusal Ekosistem",
-    description:
-      "Türkiye'nin her ilindeki lise öğrencilerine ulaşarak liseli geliştiricilerin geleceğine yön vermeyi hedefliyoruz.",
-  },
-];
-
-const VALUES = [
-  {
-    icon: Users,
-    title: "Öğrenci Odaklı",
-    description: "Tüm çalışmalarımızın merkezinde lise öğrencileri ve onların gelişimi bulunur.",
-  },
-  {
-    icon: Star,
-    title: "Gönüllülük Esasına Dayalı",
-    description: "Etkinliklerimizi ve projelerimizi gönüllü öğrencilerimizle birlikte yürütüyoruz.",
-  },
-  {
-    icon: Sprout,
-    title: "Sürekli Destek",
-    description: "Mentorluk, eğitim ve topluluk desteğiyle her adımda yanındayız.",
-  },
-  {
-    icon: Globe,
-    title: "Kapsayıcı Topluluk",
-    description: "Farklı okullardan, şehirlerden öğrencileri bir araya getiriyoruz.",
-  },
-];
-
 const PARTNER_LOGOS = [
   { name: "Games for Change Türkiye", Component: GamesForChangeLogo },
   { name: "NeoTroy Games", Component: NeoTroyGamesLogo },
@@ -116,78 +59,112 @@ const PARTNER_LOGOS = [
 ];
 
 function HakkimizdaPage() {
+  const { t } = useI18n();
+
+  useEffect(() => {
+    document.title = t("about.pageTitle");
+  }, [t]);
+
+  const timeline = [
+    {
+      icon: Flag,
+      year: t("about.timeline2025Year"),
+      title: t("about.timeline2025Title"),
+      description: t("about.timeline2025Desc"),
+    },
+    {
+      icon: Users,
+      year: t("about.timeline2026EarlyYear"),
+      title: t("about.timeline2026EarlyTitle"),
+      description: t("about.timeline2026EarlyDesc"),
+    },
+    {
+      icon: Rocket,
+      year: t("about.timeline2026NowYear"),
+      title: t("about.timeline2026NowTitle"),
+      description: t("about.timeline2026NowDesc"),
+    },
+    {
+      icon: Trophy,
+      year: t("about.timelineFutureYear"),
+      title: t("about.timelineFutureTitle"),
+      description: t("about.timelineFutureDesc"),
+    },
+  ];
+
+  const values = [
+    {
+      icon: Users,
+      title: t("about.valStudentFocusedTitle"),
+      description: t("about.valStudentFocusedDesc"),
+    },
+    {
+      icon: Star,
+      title: t("about.valVolunteerBasedTitle"),
+      description: t("about.valVolunteerBasedDesc"),
+    },
+    {
+      icon: Sprout,
+      title: t("about.valContinuousSupportTitle"),
+      description: t("about.valContinuousSupportDesc"),
+    },
+    {
+      icon: Globe,
+      title: t("about.valInclusiveCommunityTitle"),
+      description: t("about.valInclusiveCommunityDesc"),
+    },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col bg-[#F8FAFC] font-sans text-slate-900 selection:bg-[#0B0F19] selection:text-white">
       {/* Header */}
-      <Header activeNav="Hakkımızda" />
+      <Header activeNav="about" />
 
       {/* Hero Section */}
-      <section className="page-hero relative bg-navy-deep text-cream">
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-            type="image/webp"
-          />
-          <source srcSet={heroBg.url} type="image/webp" />
-          <img
-            src={heroBg.url}
-            alt=""
-            aria-hidden="true"
-            width={1774}
-            height={887}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-right"
-          />
-        </picture>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent" />
-
-        <div className="relative z-10 mx-auto max-w-[1240px] px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
+      <section className="relative bg-navy-deep text-cream">
+        <div className="relative mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
           {/* Breadcrumbs */}
           <nav
             aria-label="Breadcrumbs"
-            className="mb-5 flex items-center gap-2 text-xs font-medium text-cream/70"
+            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
           >
             <a href="/" className="transition-colors hover:text-cream">
-              Ana Sayfa
+              {t("about.breadcrumbsHome")}
             </a>
             <span className="text-cream/40">›</span>
-            <span className="font-semibold text-cream">Hakkımızda</span>
+            <span className="font-semibold text-cream">{t("about.breadcrumbsCurrent")}</span>
           </nav>
 
-          <div className="max-w-2xl">
+          <div className="mx-auto flex max-w-3xl flex-col items-center">
             {/* Eyebrow */}
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-sand">
-              HAKKIMIZDA
+            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+              {t("about.heroEyebrow")}
             </span>
 
             {/* Headline, Description & CTAs */}
-            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
-              Liseliler için, liselilerle
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              {t("about.heroTitleLine1")}
               <br />
-              geleceğin oyunlarını
-              <br />
-              inşa ediyoruz.
+              {t("about.heroTitleLine2")} {t("about.heroTitleLine3")}
             </h1>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream/80 sm:text-base">
-              LOGD, lise öğrencilerinin oyun geliştirme yolculuğunda kendilerini keşfetmelerini,
-              yeni beceriler kazanmalarını ve gerçek projelerle gelişmelerini destekleyen bir
-              topluluktur.
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+              {t("about.heroDescription")}
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
               <a
                 href="/#katil"
-                className="inline-flex h-11 items-center gap-2 rounded-lg bg-cream px-6 text-sm font-bold text-navy shadow-sm transition-all hover:opacity-90"
+                className="inline-flex h-11 items-center gap-2 rounded-xl bg-cream px-6 text-sm font-bold text-navy shadow-lg shadow-black/10 transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
               >
-                Topluluğumuza Katıl <ArrowRight className="h-4 w-4" />
+                <span>{t("about.heroJoinCommunity")}</span>
+                <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href="/etkinlikler"
-                className="inline-flex h-11 items-center gap-2 rounded-lg border border-cream/30 bg-white/5 px-6 text-sm font-semibold text-cream backdrop-blur-sm transition-colors hover:bg-cream/10"
+                className="inline-flex h-11 items-center gap-2 rounded-xl border border-cream/25 bg-cream/5 px-6 text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:bg-cream/15 hover:border-cream/40 hover:scale-[1.02] active:scale-[0.98]"
               >
-                Etkinliklerimizi Keşfet <ArrowRight className="h-4 w-4" />
+                <span>{t("about.heroExploreEvents")}</span>
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -198,10 +175,10 @@ function HakkimizdaPage() {
       <section className="border-b border-slate-200/80 bg-[#F8FAFC] py-16 lg:py-20">
         <div className="mx-auto max-w-[1240px] px-6">
           <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-            BİZ KİMİZ?
+            {t("about.whoWeAreEyebrow")}
           </p>
           <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-            Misyonumuz, vizyonumuz ve değerlerimiz.
+            {t("about.whoWeAreTitle")}
           </h2>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_360px]">
@@ -212,12 +189,9 @@ function HakkimizdaPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-800">
                   <Target className="h-5 w-5" strokeWidth={2} />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-slate-900">Misyon</h3>
+                <h3 className="mt-5 text-lg font-bold text-slate-900">{t("about.missionTitle")}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  Lise çağındaki oyun geliştirici gençlerin öğrenme, üretme ve paylaşma süreçlerini
-                  sürekli kılan bir topluluk modelini hayata geçirerek sektörün gerçek üretim
-                  dinamikleriyle buluşturmak. Geleceğin oyun geliştiricilerinin yetişmesine katkı
-                  sağlamak.
+                  {t("about.missionDesc")}
                 </p>
               </div>
 
@@ -226,12 +200,9 @@ function HakkimizdaPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-800">
                   <Eye className="h-5 w-5" strokeWidth={2} />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-slate-900">Vizyon</h3>
+                <h3 className="mt-5 text-lg font-bold text-slate-900">{t("about.visionTitle")}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                  Lise çağındaki genç yetenekleri erken aşamada destekleyerek Türkiye genelinde
-                  sürdürülebilir topluluk ağları kurmak ve liseli geliştiricilerin fikirlerini
-                  sektörel standartlarda projelere dönüştürerek oyun sektörünün geleceğine yön
-                  vermelerini sağlamak.
+                  {t("about.visionDesc")}
                 </p>
               </div>
 
@@ -240,27 +211,27 @@ function HakkimizdaPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-800">
                   <Heart className="h-5 w-5" strokeWidth={2} />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-slate-900">Değerlerimiz</h3>
+                <h3 className="mt-5 text-lg font-bold text-slate-900">{t("about.valuesTitle")}</h3>
                 <ul className="mt-3 space-y-2 text-sm text-slate-700">
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
-                    <span>Öğrenmeye Açıklık</span>
+                    <span>{t("about.valueOpenToLearning")}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
-                    <span>Birlikte Üretmek</span>
+                    <span>{t("about.valueCreatingTogether")}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
-                    <span>Saygı ve Kapsayıcılık</span>
+                    <span>{t("about.valueRespectInclusivity")}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
-                    <span>Sürekli Gelişim</span>
+                    <span>{t("about.valueContinuousGrowth")}</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-slate-900" />
-                    <span>Paylaşım ve Destek</span>
+                    <span>{t("about.valueSharingSupport")}</span>
                   </li>
                 </ul>
               </div>
@@ -276,11 +247,11 @@ function HakkimizdaPage() {
                     className="h-full w-full object-contain brightness-200"
                   />
                 </div>
-                <h3 className="mt-5 text-xl font-bold tracking-tight text-white">LOGD Hakkında</h3>
+                <h3 className="mt-5 text-xl font-bold tracking-tight text-white">
+                  {t("about.aboutLogdTitle")}
+                </h3>
                 <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                  Liseli Oyun Geliştiriciler Derneği (LOGD), oyun geliştirmeye ilgi duyan lise
-                  öğrencilerini bir araya getiren kâr amacı gütmeyen resmî bir dernektir. Genç
-                  geliştiricilere sektör standartlarında üretim deneyimi ve topluluk desteği sunar.
+                  {t("about.aboutLogdDesc")}
                 </p>
               </div>
 
@@ -289,7 +260,7 @@ function HakkimizdaPage() {
                   href="#yolculuk"
                   className="inline-flex items-center gap-2 text-sm font-semibold text-white transition-opacity hover:opacity-80"
                 >
-                  Topluluk Yolculuğumuz <ArrowRight className="h-4 w-4" />
+                  {t("about.aboutLogdJourneyLink")} <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -304,16 +275,15 @@ function HakkimizdaPage() {
             {/* Left Header */}
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                YOLCULUĞUMUZ
+                {t("about.journeyEyebrow")}
               </p>
               <h2 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-                Bir hayalle başladık,
+                {t("about.journeyTitleLine1")}
                 <br />
-                birlikte büyüdük.
+                {t("about.journeyTitleLine2")}
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:text-[15px]">
-                Küçük bir fikirle çıktığımız bu yolculukta, bugün binlerce lise öğrencisine ilham
-                olmaya devam ediyoruz.
+                {t("about.journeyDesc")}
               </p>
             </div>
 
@@ -323,7 +293,7 @@ function HakkimizdaPage() {
               <div className="absolute left-6 right-6 top-8 hidden h-0.5 bg-slate-200 md:block" />
 
               <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
-                {TIMELINE.map(({ icon: Icon, year, title, description }) => (
+                {timeline.map(({ icon: Icon, year, title, description }) => (
                   <div key={year} className="relative flex flex-col">
                     {/* Circle Milestone Node */}
                     <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border-2 border-slate-200 bg-white text-slate-900 shadow-sm">
@@ -351,23 +321,23 @@ function HakkimizdaPage() {
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                BİRLİKTE ÜRETİYORUZ
+                {t("about.producingTogetherEyebrow")}
               </p>
               <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                Kendini geliştirmek ve başkalarına
-                <br className="hidden sm:inline" /> katkı sağlamak için buradayız.
+                {t("about.producingTogetherTitleLine1")}
+                <br className="hidden sm:inline" /> {t("about.producingTogetherTitleLine2")}
               </h2>
             </div>
             <a
               href="#ekibimiz"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-900 transition-opacity hover:opacity-75"
             >
-              Ekibimizle Tanış <ArrowRight className="h-4 w-4" />
+              {t("about.meetOurTeamLink")} <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {VALUES.map(({ icon: Icon, title, description }) => (
+            {values.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
                 className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-transform hover:-translate-y-1"
@@ -385,16 +355,16 @@ function HakkimizdaPage() {
         </div>
       </section>
 
-      {/* Section 4: PARTNERLERİMİZ (Exact 7 Partners as in design image) */}
+      {/* Section 4: PARTNERLERİMİZ */}
       <section id="partnerlerimiz" className="border-b border-slate-200/80 bg-white py-16 lg:py-20">
         <div className="mx-auto max-w-[1240px] px-6">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                PARTNERLERİMİZ
+                {t("about.partnersEyebrow")}
               </p>
               <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                Birlikte daha güçlüyüz.
+                {t("about.partnersTitle")}
               </h2>
             </div>
           </div>
@@ -419,15 +389,13 @@ function HakkimizdaPage() {
           <div className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm sm:p-12 md:flex-row md:items-center">
             <div className="max-w-xl">
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-                EKİBİMİZ
+                {t("about.teamEyebrow")}
               </p>
               <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
-                Topluluğumuzu birlikte büyüten çekirdek kadromuz.
+                {t("about.teamTitle")}
               </h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-500 sm:text-[15px]">
-                Yönetim kurulumuz, komisyon liderlerimiz, teknik mentorlarımız ve lise gönüllü
-                ekiplerimizi ayrıntılı olarak incelemek için Ekibimiz sekmesini ziyaret
-                edebilirsiniz.
+                {t("about.teamDesc")}
               </p>
             </div>
             <div className="shrink-0">
@@ -435,7 +403,7 @@ function HakkimizdaPage() {
                 href="/ekibimiz"
                 className="inline-flex h-12 items-center gap-2 rounded-xl bg-navy-deep px-6 text-sm font-bold text-cream shadow-sm transition-all hover:scale-[1.02] hover:bg-navy active:scale-[0.98]"
               >
-                <span>Ekibimizi İncele</span>
+                <span>{t("about.teamCta")}</span>
                 <ArrowRight className="h-4 w-4" />
               </a>
             </div>

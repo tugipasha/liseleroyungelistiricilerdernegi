@@ -213,22 +213,6 @@
   box-shadow: var(--shadow-card);
 }
 
-@utility page-hero {
-  min-height: clamp(38rem, 65vh, 46rem);
-  background-size: cover;
-  background-position: 72% center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-@media (max-width: 767px) {
-  .page-hero {
-    min-height: 40rem;
-    background-position: 68% center;
-  }
-}
-
 @utility content-auto {
   content-visibility: auto;
   contain-intrinsic-size: 1px 600px;

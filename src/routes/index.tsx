@@ -16,7 +16,7 @@ import {
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { useCMS } from "@/lib/cms-store";
-import heroBg from "@/assets/hero-bg.png.asset.json";
+import { useI18n } from "@/lib/i18n";
 import logo from "@/assets/logd-logo.png.asset.json";
 
 // Lazy-load TurkiyeMap to eliminate 58KB of SVG path calculations from initial render
@@ -41,22 +41,6 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      {
-        rel: "preload",
-        as: "image",
-        media: "(max-width: 768px)",
-        href: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp",
-        type: "image/webp",
-      },
-      {
-        rel: "preload",
-        as: "image",
-        media: "(min-width: 769px)",
-        href: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg.webp",
-        type: "image/webp",
-      },
     ],
   }),
   component: Index,
@@ -127,68 +111,96 @@ const PROJECTS = [
 
 function Index() {
   const { data: cms } = useCMS();
+  const { t, locale } = useI18n();
+
   const homeEvents = (cms?.events || []).filter((e) => e.status !== "draft").slice(0, 3);
-  const heroEyebrow = cms?.home?.heroEyebrow || "Liseliler, imkânlar, oyunlar.";
-  const heroLine1 = cms?.home?.heroTitleLine1 || "Liseli geliştiricilerin";
-  const heroLine2 = cms?.home?.heroTitleLine2 || "oyun dünyasına açılan kapısı.";
+  const heroEyebrow =
+    locale === "tr" && cms?.home?.heroEyebrow ? cms.home.heroEyebrow : t("home.heroEyebrow");
+  const heroLine1 =
+    locale === "tr" && cms?.home?.heroTitleLine1
+      ? cms.home.heroTitleLine1
+      : t("home.heroTitleLine1");
+  const heroLine2 =
+    locale === "tr" && cms?.home?.heroTitleLine2
+      ? cms.home.heroTitleLine2
+      : t("home.heroTitleLine2");
   const heroDesc =
-    cms?.home?.heroDescription ||
-    "LOGD, Türkiye’nin dört bir yanındaki liseli oyun geliştiricileri bir araya getirerek öğrenme, üretme ve paylaşma kültürünü güçlendirir.";
-  const primaryCta = cms?.home?.heroPrimaryCtaText || "Topluluğa Katıl";
+    locale === "tr" && cms?.home?.heroDescription
+      ? cms.home.heroDescription
+      : t("home.heroDescription");
+  const primaryCta =
+    locale === "tr" && cms?.home?.heroPrimaryCtaText
+      ? cms.home.heroPrimaryCtaText
+      : t("home.heroPrimaryCta");
   const primaryLink = cms?.home?.heroPrimaryCtaLink || "#katil";
-  const secondaryCta = cms?.home?.heroSecondaryCtaText || "Projeleri Keşfet";
+  const secondaryCta =
+    locale === "tr" && cms?.home?.heroSecondaryCtaText
+      ? cms.home.heroSecondaryCtaText
+      : t("home.heroSecondaryCta");
   const secondaryLink = cms?.home?.heroSecondaryCtaLink || "#projeler";
+
+  const features = [
+    {
+      icon: Users,
+      title: t("home.featureCommunityTitle"),
+      text: t("home.featureCommunityText"),
+    },
+    {
+      icon: Code2,
+      title: t("home.featureProjectsTitle"),
+      text: t("home.featureProjectsText"),
+    },
+    {
+      icon: Calendar,
+      title: t("home.featureEventsTitle"),
+      text: t("home.featureEventsText"),
+    },
+    {
+      icon: BookOpen,
+      title: t("home.featureResourcesTitle"),
+      text: t("home.featureResourcesText"),
+    },
+    {
+      icon: Rocket,
+      title: t("home.featureOpportunitiesTitle"),
+      text: t("home.featureOpportunitiesText"),
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
       {/* Hero */}
-      <section className="page-hero relative bg-navy-deep">
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-            type="image/webp"
-          />
-          <source srcSet={heroBg.url} type="image/webp" />
-          <img
-            src={heroBg.url}
-            alt=""
-            aria-hidden="true"
-            width={1774}
-            height={887}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-right"
-          />
-        </picture>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent" />
-
-        <div className="relative mx-auto flex min-h-[680px] max-w-[1240px] items-center px-6 pb-24 pt-36">
-          <div className="max-w-[640px]">
-            <p className="eyebrow text-cream/55">{heroEyebrow}</p>
-            <h1 className="mt-5 text-5xl font-extrabold leading-[1.08] text-cream md:text-[3.75rem]">
+      <section className="relative bg-navy-deep">
+        <div className="relative mx-auto flex min-h-[580px] max-w-[1240px] flex-col items-center justify-center px-6 pb-24 pt-36 text-center sm:min-h-[640px]">
+          <div className="mx-auto flex max-w-[780px] flex-col items-center">
+            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+              {heroEyebrow}
+            </span>
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-cream sm:text-5xl md:text-6xl md:leading-[1.12]">
               {heroLine1}
               <br />
               {heroLine2}
             </h1>
-            <p className="mt-6 max-w-[540px] text-[15px] leading-relaxed text-cream/70">
+            <p className="mt-6 max-w-[620px] text-base leading-relaxed text-cream/75 sm:text-lg">
               {heroDesc}
             </p>
 
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href={primaryLink}
-                className="inline-flex h-12 items-center gap-2 rounded-lg bg-cream px-6 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
+                className="inline-flex h-12 items-center gap-2.5 rounded-xl bg-cream px-7 text-sm font-bold text-navy shadow-lg shadow-black/10 transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
               >
-                {primaryCta} <ArrowRight className="h-4 w-4" />
+                <span>{primaryCta}</span>
+                <ArrowRight className="h-4 w-4" />
               </a>
               <a
                 href={secondaryLink}
-                className="inline-flex h-12 items-center gap-2 rounded-lg border border-cream/30 px-6 text-sm font-semibold text-cream transition-colors hover:bg-cream/10"
+                className="inline-flex h-12 items-center gap-2.5 rounded-xl border border-cream/25 bg-cream/5 px-7 text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:bg-cream/15 hover:border-cream/40 hover:scale-[1.02] active:scale-[0.98]"
               >
-                {secondaryCta} <ArrowRight className="h-4 w-4" />
+                <span>{secondaryCta}</span>
+                <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </div>
@@ -197,21 +209,19 @@ function Index() {
 
       {/* What we do */}
       <section id="hakkimizda" className="content-auto mx-auto max-w-[1240px] px-6 py-24">
-        <p className="eyebrow">Neler yapıyoruz?</p>
+        <p className="eyebrow">{t("home.whatWeDoEyebrow")}</p>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-4xl font-extrabold text-foreground">
-            Öğrenciler için, öğrencilerle birlikte.
-          </h2>
+          <h2 className="text-4xl font-extrabold text-foreground">{t("home.whatWeDoTitle")}</h2>
           <a
             href="/hakkimizda"
             className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:opacity-70"
           >
-            Hakkımızda <ArrowRight className="h-4 w-4" />
+            {t("home.aboutUsLink")} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          {FEATURES.map(({ icon: Icon, title, text }) => (
+          {features.map(({ icon: Icon, title, text }) => (
             <article
               key={title}
               className="card-elevate rounded-xl border border-border bg-card p-6 transition-transform hover:-translate-y-1"
@@ -226,16 +236,16 @@ function Index() {
 
       {/* Projects */}
       <section id="projeler" className="content-auto mx-auto max-w-[1240px] px-6 pb-24">
-        <p className="eyebrow">Öne çıkan projeler</p>
+        <p className="eyebrow">{t("home.featuredProjectsEyebrow")}</p>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
           <h2 className="text-4xl font-extrabold text-foreground">
-            Liselerden çıkan yaratıcı oyun projeleri.
+            {t("home.featuredProjectsTitle")}
           </h2>
           <a
             href="/projeler"
             className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:opacity-70"
           >
-            Tüm Projeler <ArrowRight className="h-4 w-4" />
+            {t("home.allProjectsLink")} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 
@@ -287,14 +297,16 @@ function Index() {
 
       {/* Events + stats */}
       <section id="etkinlikler" className="content-auto mx-auto max-w-[1240px] px-6 pb-24">
-        <p className="eyebrow">Yaklaşan etkinlikler</p>
+        <p className="eyebrow">{t("home.upcomingEventsEyebrow")}</p>
         <div className="mt-4 flex flex-wrap items-end justify-between gap-4">
-          <h2 className="text-4xl font-extrabold text-foreground">Takvimde neler var?</h2>
+          <h2 className="text-4xl font-extrabold text-foreground">
+            {t("home.upcomingEventsTitle")}
+          </h2>
           <a
             href="/etkinlikler"
             className="inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:opacity-70"
           >
-            Tüm Etkinlikler <ArrowRight className="h-4 w-4" />
+            {t("home.allEventsLink")} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 
@@ -341,25 +353,24 @@ function Index() {
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-navy/10 text-navy mb-3">
                 <Calendar className="h-6 w-6" />
               </div>
-              <h3 className="text-base font-bold text-foreground">Yeni Etkinlikler Çok Yakında</h3>
+              <h3 className="text-base font-bold text-foreground">{t("home.noEventsTitle")}</h3>
               <p className="mt-1.5 max-w-md text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                Şu anda takvimde planlanmış aktif bir etkinlik bulunmuyor. Yeni game jam ve atölye
-                duyurularımız çok yakında paylaşılacaktır.
+                {t("home.noEventsDesc")}
               </p>
               <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
                 <a
-                  href="https://discord.gg/logd"
+                  href="https://discord.gg/per2RTmmP"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-navy px-4 py-2 text-xs font-semibold text-cream hover:bg-navy-light transition-colors"
                 >
-                  Discord Topluluğuna Katıl
+                  {t("home.joinDiscordBtn")}
                 </a>
                 <a
                   href="/etkinlikler"
                   className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-xs font-semibold text-foreground hover:bg-secondary transition-colors"
                 >
-                  Etkinlikler Sayfası
+                  {t("home.eventsPageBtn")}
                 </a>
               </div>
             </div>
@@ -371,21 +382,20 @@ function Index() {
       <section id="topluluk" className="content-auto mx-auto max-w-[1240px] px-6 pb-24">
         <div className="grid items-center gap-10 lg:grid-cols-[1fr_1.7fr]">
           <div>
-            <p className="eyebrow">Topluluğumuz</p>
+            <p className="eyebrow">{t("home.communityEyebrow")}</p>
             <h2 className="mt-4 text-4xl font-extrabold leading-tight text-foreground">
-              Birlikte büyüyen
+              {t("home.communityTitleLine1")}
               <br />
-              büyük bir aile.
+              {t("home.communityTitleLine2")}
             </h2>
             <p className="mt-5 max-w-[340px] text-[13px] leading-relaxed text-muted-foreground">
-              Türkiye'nin 81 ilinde yer alan liseli geliştiriciler, sektörün mentorlarıyla büyüyen
-              bir topluluğun parçası olun.
+              {t("home.communityDesc")}
             </p>
             <a
               href="#katil"
               className="mt-8 inline-flex h-11 items-center gap-2 rounded-lg bg-navy px-5 text-sm font-semibold text-cream transition-opacity hover:opacity-90"
             >
-              Topluluğa Katıl <ArrowRight className="h-4 w-4" />
+              {t("home.communityJoinBtn")} <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
@@ -397,7 +407,7 @@ function Index() {
                   aria-hidden="true"
                 >
                   <span className="text-xs font-medium text-muted-foreground">
-                    Türkiye Topluluk Haritası Yükleniyor...
+                    {t("home.communityMapLoading")}
                   </span>
                 </div>
               }
@@ -405,7 +415,7 @@ function Index() {
               <TurkiyeMap />
             </Suspense>
             <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
-              <MapPin className="h-3.5 w-3.5" /> İzmir · Uşak · Aydın merkezli, 81 ilde topluluk
+              <MapPin className="h-3.5 w-3.5" /> {t("home.communityMapLocation")}
             </p>
           </div>
         </div>
@@ -424,13 +434,11 @@ function Index() {
             className="h-16 w-16 rounded-xl"
           />
           <h2 className="text-2xl font-extrabold leading-snug text-cream">
-            Sıradaki projede
+            {t("home.newsletterTitleLine1")}
             <br />
-            sen de varsın.
+            {t("home.newsletterTitleLine2")}
           </h2>
-          <p className="text-[13px] leading-relaxed text-cream/65">
-            Etkinliklerden haberdar ol, içeriklerden yararlan ve topluluğun parçası kal.
-          </p>
+          <p className="text-[13px] leading-relaxed text-cream/65">{t("home.newsletterDesc")}</p>
           <form
             onSubmit={(e) => e.preventDefault()}
             aria-label="Bülten abonelik formu"
@@ -439,16 +447,16 @@ function Index() {
             <input
               type="email"
               required
-              placeholder="E-posta adresin"
-              aria-label="E-posta adresiniz"
+              placeholder={t("home.newsletterEmailPlaceholder")}
+              aria-label={t("home.newsletterEmailPlaceholder")}
               className="h-11 min-w-[220px] flex-1 rounded-lg border border-cream/20 bg-cream px-4 text-sm text-navy placeholder:text-navy/45 focus:outline-none focus:ring-2 focus:ring-cream/60"
             />
             <button
               type="submit"
-              aria-label="Bültene abone ol"
+              aria-label={t("home.newsletterSubmitBtn")}
               className="inline-flex h-11 items-center gap-2 rounded-lg bg-sand px-5 text-sm font-semibold text-navy transition-opacity hover:opacity-90"
             >
-              Gönder <ArrowRight className="h-4 w-4" />
+              {t("home.newsletterSubmitBtn")} <ArrowRight className="h-4 w-4" />
             </button>
           </form>
         </div>

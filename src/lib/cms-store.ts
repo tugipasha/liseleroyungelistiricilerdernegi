@@ -21,6 +21,7 @@ export interface SiteSettings {
   address: string;
   instagramUrl: string;
   discordUrl: string;
+  linkedinUrl: string;
   githubUrl: string;
   youtubeUrl: string;
   twitterUrl: string;
@@ -59,10 +60,12 @@ export interface TeamMember {
   id: string;
   name: string;
   role: string;
-  image: string;
-  email: string;
-  linkedin: string;
-  github: string;
+  school?: string;
+  phone?: string;
+  image?: string;
+  email?: string;
+  linkedin?: string;
+  github?: string;
 }
 
 export interface NewsPost {
@@ -159,12 +162,15 @@ export const DEFAULT_CMS_DATA: CMSData = {
     keywords:
       "LOGD, Liseler Oyun Geliştiricileri Derneği, dernek kütük 35-089-005, lise oyun geliştirme, game jam, lise bilişim kulüpleri, Unity, Godot, Unreal Engine",
     associationNumber: "35-089-005",
-    contactEmail: "info@logd.org.tr",
+    contactEmail: "Business@logddev.com",
     kvkkEmail: "kvkk@logd.org.tr",
     phone: "+90 (232) 483 3500",
     address: "Konak, İzmir, Türkiye",
-    instagramUrl: "https://www.instagram.com/logdresmi/",
-    discordUrl: "https://discord.gg/logd",
+    instagramUrl:
+      "https://www.instagram.com/logddev?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==",
+    discordUrl: "https://discord.gg/per2RTmmP",
+    linkedinUrl:
+      "https://www.linkedin.com/company/liseler-oyun-geli%C5%9Ftiriciler-derne%C4%9Fi/posts/?viewAsMember=true",
     githubUrl: "https://github.com/logd-org",
     youtubeUrl: "https://www.youtube.com/@logdresmi",
     twitterUrl: "https://x.com/logdresmi",
@@ -262,42 +268,108 @@ export const DEFAULT_CMS_DATA: CMSData = {
   },
   team: [
     {
-      id: "ahmet-yilmaz",
-      name: "Ahmet Yılmaz",
-      role: "Topluluk Yöneticisi",
-      image: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/team_ahmet_1788547015900.webp",
-      email: "ahmet@logd.org.tr",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      id: "baskan-yavuz-deniz",
+      name: "Yavuz Deniz",
+      role: "Topluluk Başkanı",
+      school: "Aydın Fen Lisesi",
+      phone: "0553 832 83 66",
+      email: "Business@logddev.com",
     },
     {
-      id: "zeynep-kaya",
-      name: "Zeynep Kaya",
-      role: "Etkinlik Koordinatörü",
-      image: "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/team_zeynep_1788547038479.webp",
-      email: "zeynep@logd.org.tr",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      id: "baskan-poyraz",
+      name: "Poyraz",
+      role: "Topluluk Başkanı",
+      school: "Bahçeşehir Fentek",
+      phone: "0542 631 09 82",
+      email: "Business@logddev.com",
     },
     {
-      id: "mertcan-oz",
-      name: "Mert Can Öz",
-      role: "Teknik Lider & Oyun Tasarımcısı",
-      image:
-        "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/team_mertcan_1788547060404.webp",
-      email: "mertcan@logd.org.tr",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      id: "baskan-efkan-senol",
+      name: "Efkan Şenol",
+      role: "Topluluk Başkanı",
+      school: "Bornova Anadolu Lisesi",
+      phone: "0530 887 97 56",
+      email: "Business@logddev.com",
     },
     {
-      id: "elifnur-demir",
-      name: "Elif Nur Demir",
-      role: "Eğitim ve Atölyeler Lideri",
-      image:
-        "/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/team_elifnur_1788547075365.webp",
-      email: "elif@logd.org.tr",
-      linkedin: "https://linkedin.com",
-      github: "https://github.com",
+      id: "baskan-furkan-yurt",
+      name: "Furkan Yurt",
+      role: "Topluluk Başkanı",
+      school: "Cihat Kora Anadolu Lisesi",
+      phone: "0554 188 22 59",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-deniz-ak",
+      name: "Deniz Ak",
+      role: "Topluluk Başkanı",
+      school: "İzmir Fen Lisesi (İFL)",
+      phone: "0544 394 84 76",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-mehmet-kaan-cengiz",
+      name: "Mehmet Kaan Cengiz",
+      role: "Topluluk Başkanı",
+      school: "İzmir Atatürk Lisesi",
+      phone: "0544 925 32 32",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-cem-bal",
+      name: "Cem Bal",
+      role: "Topluluk Başkanı",
+      school: "İzmir Kız Lisesi",
+      phone: "0542 891 15 66",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-gorkem",
+      name: "Görkem",
+      role: "Topluluk Başkanı",
+      school: "Karşıyaka Anadolu Lisesi",
+      phone: "0536 747 02 34",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-akif-ersoy-armagan",
+      name: "Akif Ersoy Armağan",
+      role: "Topluluk Başkanı",
+      school: "Mazhar Zorlu MTAL",
+      phone: "0545 974 96 99",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-ata-barmanbek",
+      name: "Ata Barmanbek",
+      role: "Topluluk Başkanı",
+      school: "NUMTAL",
+      phone: "0530 128 18 20",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-buse",
+      name: "Buse",
+      role: "Topluluk Başkanı",
+      school: "ŞAKALOTT",
+      phone: "0507 509 10 56",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-ela",
+      name: "Ela",
+      role: "Topluluk Başkanı",
+      school: "UHÇAL",
+      phone: "0555 163 29 91",
+      email: "Business@logddev.com",
+    },
+    {
+      id: "baskan-kagan-akyurek",
+      name: "Kağan Akyürek",
+      role: "Topluluk Başkanı",
+      school: "Yunus Emre Anadolu Lisesi",
+      phone: "0554 195 29 58",
+      email: "Business@logddev.com",
     },
   ],
   news: [],
@@ -449,13 +521,25 @@ export function getCMSData(): CMSData {
         ? DEFAULT_CMS_DATA.about
         : { ...DEFAULT_CMS_DATA.about, ...(parsed.about || {}) };
 
+    const rawSettings = parsed?.settings || {};
+    const settings = { ...DEFAULT_CMS_DATA.settings, ...rawSettings };
+    if (settings.discordUrl === "https://discord.gg/logd" || !settings.discordUrl) {
+      settings.discordUrl = DEFAULT_CMS_DATA.settings.discordUrl;
+    }
+    if (settings.instagramUrl?.includes("logdresmi") || !settings.instagramUrl) {
+      settings.instagramUrl = DEFAULT_CMS_DATA.settings.instagramUrl;
+    }
+    if (!settings.linkedinUrl) {
+      settings.linkedinUrl = DEFAULT_CMS_DATA.settings.linkedinUrl;
+    }
+
     return {
       ...DEFAULT_CMS_DATA,
       ...parsed,
       games,
       news,
       events,
-      settings: { ...DEFAULT_CMS_DATA.settings, ...(parsed.settings || {}) },
+      settings,
       home: { ...DEFAULT_CMS_DATA.home, ...(parsed.home || {}) },
       about,
     };

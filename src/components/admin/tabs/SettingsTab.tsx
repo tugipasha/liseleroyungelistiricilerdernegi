@@ -214,6 +214,15 @@ export function SettingsTab({ settings, onSaveSettings }: SettingsTabProps) {
               />
             </div>
             <div>
+              <label className="block text-xs font-semibold text-[#1d2327]">LinkedIn URL</label>
+              <input
+                type="text"
+                value={form.linkedinUrl || ""}
+                onChange={(e) => setForm({ ...form, linkedinUrl: e.target.value })}
+                className="mt-1 w-full rounded border border-[#8c8f94] px-3 py-2 text-xs text-[#2c3338] outline-none focus:border-[#2271b1]"
+              />
+            </div>
+            <div>
               <label className="block text-xs font-semibold text-[#1d2327]">
                 X (Twitter) Profil URL
               </label>

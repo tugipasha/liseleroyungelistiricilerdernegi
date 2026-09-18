@@ -17,7 +17,6 @@ import {
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { useCMS, type NewsPost } from "@/lib/cms-store";
-import heroBg from "@/assets/hero-bg.png.asset.json";
 
 export const Route = createFileRoute("/haberler")({
   head: () => ({
@@ -138,60 +137,36 @@ function HaberlerPage() {
       <Header activeNav="Haberler" />
 
       {/* Hero Section */}
-      <section className="page-hero relative bg-navy-deep text-cream">
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/__l5e/assets-v1/b4795b56-e239-4008-8203-408bf280cc33/hero-bg-mobile.webp"
-            type="image/webp"
-          />
-          <source srcSet={heroBg.url} type="image/webp" />
-          <img
-            src={heroBg.url}
-            alt=""
-            aria-hidden="true"
-            width={1774}
-            height={887}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[72%_center] sm:object-right"
-          />
-        </picture>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-transparent" />
+      <section className="relative bg-navy-deep text-cream">
+        <div className="relative z-10 mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
+          {/* Breadcrumb */}
+          <nav
+            aria-label="Breadcrumb"
+            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
+          >
+            <a href="/" className="transition-colors hover:text-cream">
+              Ana Sayfa
+            </a>
+            <span className="text-cream/40">›</span>
+            <span className="font-semibold text-cream">Haberler</span>
+          </nav>
 
-        <div className="relative z-10 mx-auto max-w-[1240px] px-6 pb-16 pt-24 sm:pb-20 sm:pt-32">
-          <div className="max-w-2xl">
-            {/* Left Content */}
-            <div>
-              {/* Breadcrumb */}
-              <nav
-                aria-label="Breadcrumb"
-                className="mb-5 flex items-center gap-2 text-xs font-medium text-cream/70"
-              >
-                <a href="/" className="transition-colors hover:text-cream">
-                  Ana Sayfa
-                </a>
-                <span className="text-cream/40">›</span>
-                <span className="text-cream">Haberler</span>
-              </nav>
+          <div className="mx-auto flex max-w-3xl flex-col items-center">
+            {/* Eyebrow */}
+            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+              HABERLER
+            </span>
 
-              {/* Eyebrow */}
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-sand">
-                HABERLER
-              </span>
+            {/* Title */}
+            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              Topluluğumuzdan <span className="text-cream">en son haberler.</span>
+            </h1>
 
-              {/* Title */}
-              <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
-                Topluluğumuzdan <br />
-                <span className="text-cream">en son haberler.</span>
-              </h1>
-
-              {/* Subtitle */}
-              <p className="mt-4 max-w-xl text-sm leading-relaxed text-cream/80 sm:text-base">
-                Etkinlik duyurularından başarı hikayelerine, oyun geliştirme dünyasındaki
-                yeniliklere kadar her şey burada.
-              </p>
-            </div>
+            {/* Subtitle */}
+            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+              Etkinlik duyurularından başarı hikayelerine, oyun geliştirme dünyasındaki yeniliklere
+              kadar her şey burada.
+            </p>
           </div>
         </div>
       </section>
@@ -267,7 +242,7 @@ function HaberlerPage() {
                 Ana Sayfaya Dön
               </a>
               <a
-                href="https://discord.gg/logd"
+                href="https://discord.gg/per2RTmmP"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full border border-border/80 bg-card px-5 py-2 text-xs font-semibold text-foreground transition-colors hover:bg-secondary sm:text-sm"
