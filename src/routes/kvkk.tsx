@@ -1,10 +1,11 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Building2, Scale, Mail, FileText, CheckCircle2 } from "lucide-react";
 import { LegalLayout } from "@/components/site/LegalLayout";
 import { useI18n } from "@/lib/i18n";
 import { kvkkPageTranslations } from "@/lib/legal-translations/kvkk";
 
-export default function KvkkPage() {
+function KvkkPage() {
   const { currentLocale } = useI18n();
   const k = kvkkPageTranslations[currentLocale] || kvkkPageTranslations.tr;
 
@@ -230,3 +231,7 @@ export default function KvkkPage() {
     </LegalLayout>
   );
 }
+
+export const Route = createFileRoute("/kvkk")({
+  component: KvkkPage,
+});

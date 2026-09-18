@@ -1,10 +1,11 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { ShieldAlert, Scale, Users, Mail } from "lucide-react";
 import { LegalLayout } from "@/components/site/LegalLayout";
 import { useI18n } from "@/lib/i18n";
 import { privacyPageTranslations } from "@/lib/legal-translations/privacy-policy";
 
-export default function GizlilikPolitikasiPage() {
+function GizlilikPolitikasiPage() {
   const { currentLocale } = useI18n();
   const p = privacyPageTranslations[currentLocale] || privacyPageTranslations.tr;
 
@@ -219,3 +220,7 @@ export default function GizlilikPolitikasiPage() {
     </LegalLayout>
   );
 }
+
+export const Route = createFileRoute("/gizlilik-politikasi")({
+  component: GizlilikPolitikasiPage,
+});
