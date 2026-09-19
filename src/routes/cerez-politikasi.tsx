@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { Sliders, Cookie } from "lucide-react";
 import { LegalLayout } from "@/components/site/LegalLayout";
@@ -6,7 +5,7 @@ import { openCookieSettings } from "@/lib/cookie-settings";
 import { useI18n } from "@/lib/i18n";
 import { cookiePageTranslations } from "@/lib/legal-translations/cookie-policy";
 
-function CerezPolitikasiPage() {
+export default function CerezPolitikasiPage() {
   const { currentLocale } = useI18n();
   const c = cookiePageTranslations[currentLocale] || cookiePageTranslations.tr;
 
@@ -215,7 +214,3 @@ function CerezPolitikasiPage() {
     </LegalLayout>
   );
 }
-
-export const Route = createFileRoute("/cerez-politikasi")({
-  component: CerezPolitikasiPage,
-});
