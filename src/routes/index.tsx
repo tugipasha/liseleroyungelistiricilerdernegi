@@ -414,9 +414,6 @@ function Index() {
             >
               <TurkiyeMap />
             </Suspense>
-            <p className="mt-2 flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground">
-              <MapPin className="h-3.5 w-3.5" /> {t("home.communityMapLocation")}
-            </p>
           </div>
         </div>
       </section>

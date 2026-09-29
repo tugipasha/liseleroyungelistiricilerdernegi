@@ -66,33 +66,33 @@ export function LegalLayout({
 
       {/* Hero Banner */}
       <section className="relative bg-navy-deep text-cream">
-        <div className="relative z-10 mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
-          {/* Breadcrumb */}
-          <nav
-            aria-label="Breadcrumbs"
-            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
-          >
-            <a href="/" className="transition-colors hover:text-cream">
-              {t("legal.breadcrumbsHome")}
-            </a>
-            <span className="text-cream/40">›</span>
-            <span className="text-cream/80">{t("legal.breadcrumbsSection")}</span>
-            <span className="text-cream/40">›</span>
-            <span className="font-semibold text-cream">{title}</span>
-          </nav>
+        <div className="relative z-10 mx-auto flex min-h-[580px] max-w-[1240px] flex-col items-center justify-center px-6 pb-24 pt-36 text-center sm:min-h-[640px]">
+          <div className="mx-auto flex max-w-[780px] flex-col items-center">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumbs"
+              className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
+            >
+              <a href="/" className="transition-colors hover:text-cream">
+                {t("legal.breadcrumbsHome")}
+              </a>
+              <span className="text-cream/40">›</span>
+              <span className="text-cream/80">{t("legal.breadcrumbsSection")}</span>
+              <span className="text-cream/40">›</span>
+              <span className="font-semibold text-cream">{title}</span>
+            </nav>
 
-          <div className="mx-auto flex max-w-3xl flex-col items-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-cream/20 bg-cream/10 px-3.5 py-1.5 text-xs font-medium text-cream/90 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cream/20 bg-cream/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-sand backdrop-blur-sm">
               <Calendar className="h-3.5 w-3.5" />
               <span>
                 {t("legal.lastUpdatedPrefix")} {lastUpdated}
               </span>
             </div>
 
-            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-cream sm:text-5xl md:text-6xl md:leading-[1.12]">
               {title}
             </h1>
-            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+            <p className="mt-6 max-w-[620px] text-base leading-relaxed text-cream/75 sm:text-lg">
               {subtitle}
             </p>
           </div>

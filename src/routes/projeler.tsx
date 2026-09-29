@@ -167,43 +167,43 @@ function ProjelerShowcasePage() {
 
       {/* Hero Section */}
       <section className="relative bg-navy-deep text-cream">
-        <div className="relative z-10 mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
-          {/* Breadcrumb */}
-          <nav
-            aria-label="Ekmek Kırıntısı"
-            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
-          >
-            <a href="/" className="transition-colors hover:text-cream">
-              Ana Sayfa
-            </a>
-            <span className="text-cream/40">›</span>
-            <span className="font-semibold text-cream">Showcase</span>
-          </nav>
+        <div className="relative z-10 mx-auto flex min-h-[580px] max-w-[1240px] flex-col items-center justify-center px-6 pb-24 pt-36 text-center sm:min-h-[640px]">
+          <div className="mx-auto flex max-w-[780px] flex-col items-center">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Ekmek Kırıntısı"
+              className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
+            >
+              <a href="/" className="transition-colors hover:text-cream">
+                Ana Sayfa
+              </a>
+              <span className="text-cream/40">›</span>
+              <span className="font-semibold text-cream">Showcase</span>
+            </nav>
 
-          <div className="mx-auto flex max-w-3xl flex-col items-center">
             {/* Eyebrow tag */}
-            <div className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
               SHOWCASE
-            </div>
+            </span>
 
             {/* Headline */}
-            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-cream sm:text-5xl md:text-6xl md:leading-[1.12]">
               Topluluğumuzun <br className="hidden sm:inline" />
               ürettiği oyunları keşfet.
             </h1>
 
             {/* Subtitle */}
-            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+            <p className="mt-6 max-w-[620px] text-base leading-relaxed text-cream/75 sm:text-lg">
               Yarışmalarda, game jam'lerde ve topluluk etkinliklerinde geliştirilen en iyi oyunları
               burada bulabilirsin.
             </p>
 
             {/* Action Buttons */}
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <button
                 type="button"
                 onClick={scrollToGames}
-                className="inline-flex items-center gap-2 rounded-xl bg-cream px-6 py-3 text-sm font-bold text-[#131127] shadow-lg shadow-black/10 transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex h-12 items-center gap-2.5 rounded-xl bg-cream px-7 text-sm font-bold text-navy shadow-lg shadow-black/10 transition-all hover:bg-cream/90 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Oyunları Keşfet</span>
                 <ArrowRight className="h-4 w-4" />
@@ -212,7 +212,7 @@ function ProjelerShowcasePage() {
               <button
                 type="button"
                 onClick={() => setHowToSubmitOpen(true)}
-                className="inline-flex items-center gap-2 rounded-xl border border-cream/25 bg-cream/10 px-6 py-3 text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:bg-cream/20 hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex h-12 items-center gap-2.5 rounded-xl border border-cream/25 bg-cream/5 px-7 text-sm font-semibold text-cream backdrop-blur-sm transition-all hover:bg-cream/15 hover:border-cream/40 hover:scale-[1.02] active:scale-[0.98]"
               >
                 <span>Nasıl eklenir?</span>
                 <ArrowRight className="h-4 w-4" />

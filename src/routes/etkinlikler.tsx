@@ -66,36 +66,36 @@ function EtkinliklerPage() {
   const allPastEvents = isExpandedPast ? [...PAST_EVENTS, ...EXTRA_PAST_EVENTS] : PAST_EVENTS;
 
   return (
-    <div className="min-h-screen bg-[#fafafc] text-foreground antialiased selection:bg-sand/30 selection:text-navy">
+    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-sand/30 selection:text-navy">
       {/* Header */}
       <Header activeNav="Etkinlikler" />
 
       {/* Hero Section */}
       <section className="relative bg-navy-deep text-cream">
-        <div className="relative mx-auto flex max-w-[1240px] flex-col items-center justify-center px-6 pb-20 pt-28 text-center sm:pb-24 sm:pt-36">
-          {/* Breadcrumb */}
-          <nav
-            aria-label="Breadcrumb"
-            className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
-          >
-            <a href="/" className="transition-colors hover:text-cream">
-              Ana Sayfa
-            </a>
-            <span className="text-cream/40">›</span>
-            <span className="font-semibold text-cream">Etkinlikler</span>
-          </nav>
+        <div className="relative mx-auto flex min-h-[580px] max-w-[1240px] flex-col items-center justify-center px-6 pb-24 pt-36 text-center sm:min-h-[640px]">
+          <div className="mx-auto flex max-w-[780px] flex-col items-center">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-6 flex items-center justify-center gap-2 text-xs font-medium text-cream/70"
+            >
+              <a href="/" className="transition-colors hover:text-cream">
+                Ana Sayfa
+              </a>
+              <span className="text-cream/40">›</span>
+              <span className="font-semibold text-cream">Etkinlikler</span>
+            </nav>
 
-          <div className="mx-auto flex max-w-3xl flex-col items-center">
-            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
+            <span className="inline-flex items-center rounded-full border border-cream/15 bg-cream/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-sand shadow-sm backdrop-blur-sm">
               ETKİNLİKLER
             </span>
 
-            <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-cream sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+            <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-cream sm:text-5xl md:text-6xl md:leading-[1.12]">
               Birlikte öğrendik, birlikte geliştirdik, <br className="hidden sm:inline" />
               birlikte büyüdük.
             </h1>
 
-            <p className="mt-5 max-w-2xl text-sm leading-relaxed text-cream/80 sm:text-base">
+            <p className="mt-6 max-w-[620px] text-base leading-relaxed text-cream/75 sm:text-lg">
               Game jam'lerden seminerlere, atölyelerden yarışmalara kadar birçok etkinliği geride
               bıraktık. Tüm etkinliklerimize göz atın.
             </p>

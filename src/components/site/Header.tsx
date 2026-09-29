@@ -76,7 +76,7 @@ export const Header = memo(function Header({ activeNav }: HeaderProps) {
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Desktop Language Selector */}
           <div className="relative hidden sm:block">
             <button
@@ -142,12 +142,15 @@ export const Header = memo(function Header({ activeNav }: HeaderProps) {
             ))}
           </nav>
 
-          {/* Mobile Language Switcher */}
+          {/* Mobile Actions: Language Switcher */}
           <div className="mt-3 flex items-center justify-between border-t border-cream/10 pt-3">
-            <span className="flex items-center gap-1.5 text-xs text-cream/70">
-              <Globe className="h-3.5 w-3.5" />
-              {t("header.selectLanguage")}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-1.5 text-xs text-cream/70">
+                <Globe className="h-3.5 w-3.5" />
+                {t("header.selectLanguage")}
+              </span>
+            </div>
+
             <div className="flex items-center gap-1.5">
               {locales.map((l) => (
                 <button
